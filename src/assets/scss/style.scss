@@ -1,0 +1,216 @@
+/********************
+   =variables
+*********************/
+$body-bg-color: #f3f3f3;
+$header-height: 500px;
+$border-bottom: 2px solid #f5cf3e;
+
+/********************
+   =mixins
+*********************/
+@mixin gradient($start, $end) {
+  background: $start;
+  background: -moz-linear-gradient(top, $start 0%, $end 100%);
+  background: -webkit-linear-gradient(top, $start 0%,$end 100%);
+  background: linear-gradient(to bottom, $start 0%,$end 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$start', endColorstr='$end',GradientType=0 );
+}
+@mixin description($color, $textshadow) {
+  color: $color;
+  text-shadow: 0 1px 0 $textshadow;
+  letter-spacing: .05em;
+}
+/********************
+   =body
+*********************/
+html, body {
+  height: 1000px;
+}
+body {
+  background-color: $body-bg-color;
+}
+
+/********************
+   =header
+*********************/
+header {
+  height: $header-height;
+  background: url('../img/header-bg.jpg');
+  background-size: cover;
+  position: relative;
+  color: #fff;
+  &:before {
+    content: "";
+    position: absolute;
+    height: $header-height;
+    background-color: rgba(0,0,0,0.8);
+    // @include gradient(rgba(0,0,0,0.5), rgba(0,0,0, 0.9) );
+    width: 100%;
+    z-index: 1;
+  }
+  .logo {
+    max-width: 50px;
+  }
+  .header-content {
+    position: relative;
+    z-index: 1000;
+  }
+  .header-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h3 {
+      margin-top: 100px;
+      font-size: 5vw;
+      border: none;
+    }
+    .list-inline {
+      font-size: 2vw;
+    }
+    .list-inline-item:not(:last-child){
+      padding:0;
+      margin-right: 2px;;
+      &:after {
+        content: "/";
+        padding: 0;
+        margin-left: 6px;
+      }
+    }
+  }
+
+}
+
+/********************
+   =navbar
+*********************/
+
+/********************
+   =typography
+*********************/
+h2,h3,h4 {
+  position: relative;
+  border-bottom: $border-bottom;
+  padding-bottom: 5px;
+  // &:after {
+  //   content: "";
+  //   width: 100%;
+  //   border-bottom: $border-bottom;
+  // }
+}
+
+section {
+  padding: 70px 0;
+}
+
+/********************
+   =volunteer-section
+*********************/
+section#volunteers {
+  background-color: rgba(0,0,0,0.8);
+  background-size: cover;
+  color: #fff;
+  // height: 400px;
+  .volunteer-description {
+    @include description(#fff, rgba(0, 255 ,0 ,0.5));
+  }
+}
+
+
+/********************
+   =single-profile
+*********************/
+.single-profile-outer-container {
+  background-color: #fff;
+  margin-bottom: 20px;
+
+  p.description-container {
+    // border: 1px solid red;
+    text-align: center;
+    padding: 20px 10px;
+    @include description(#777, rgba(255, 0 ,0 ,0.5));
+  }
+  .img-container {
+    img {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+  p.additional-info {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-basis: 50%;
+    justify-content: space-between;
+    .category {
+      font-weight: bold;
+    }
+  }
+  .button-container {
+    text-align: center;
+    padding-bottom: 30px;
+  }
+}
+
+/********************
+   =single-page
+*********************/
+
+// =carousel
+.peopleCarouselImg {
+  img{
+    width: auto;
+    height: 450px;
+    max-height: 450px;
+  }
+}
+
+// =complete-info
+.complete-info {
+  .post-date {
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    @include description(#777, #fff);
+
+  }
+  > p {
+    line-height: 1.7em;
+    @include description(#777, rgba(255, 0 ,0 ,0.5));
+  }
+  .info-summary {
+    font-weight: bold;
+    >div {
+      margin-bottom: 30px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+  }
+}
+
+// location-map
+#map {
+  height: 400px;
+}
+
+/********************
+   =footer
+*********************/
+#footer {
+  background-color: rgba(255, 255, 255, 0.5);
+  background: url('../img/header-bg.jpg') no-repeat;
+  background-size: cover;
+  position: relative;
+  .container {
+    position: relative;
+    z-index: 100;
+  }
+  &:after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    // border: 3px solid red;
+    height: 100%;
+    top:0;
+    background-color: rgba(255,255,255, 0.8);
+    z-index: 10;
+  }
+
+}

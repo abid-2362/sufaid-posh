@@ -1,0 +1,160 @@
+/********************
+   =variables
+*********************/
+/********************
+   =mixins
+*********************/
+/********************
+   =body
+*********************/
+html, body {
+  height: 1000px;
+}
+
+body {
+  background-color: #f3f3f3;
+}
+
+/********************
+   =header
+*********************/
+header {
+  height: 500px;
+  background: url("../img/header-fruit.jpg");
+  background-size: cover;
+  position: relative;
+  color: #fff;
+}
+header:before {
+  content: "";
+  position: absolute;
+  height: 500px;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  z-index: 1;
+}
+header .logo {
+  max-width: 50px;
+}
+header .header-content {
+  position: relative;
+  z-index: 1000;
+}
+header .header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+header .header-info h3 {
+  margin-top: 100px;
+  font-size: 5vw;
+  border: none;
+}
+header .header-info .list-inline-item:not(:last-child) {
+  padding: 0;
+  margin-right: 2px;
+}
+header .header-info .list-inline-item:not(:last-child):after {
+  content: "/";
+  padding: 0;
+  margin-left: 6px;
+}
+
+/********************
+   =navbar
+*********************/
+/********************
+   =typography
+*********************/
+h2, h3, h4 {
+  position: relative;
+  border-bottom: 2px solid #f5cf3e;
+  padding-bottom: 5px;
+}
+
+section {
+  padding: 70px 0;
+}
+
+/********************
+   =volunteer-section
+*********************/
+section#volunteers {
+  background-color: rgba(0, 0, 0, 0.8);
+  background-size: cover;
+  color: #fff;
+}
+section#volunteers .volunteer-description {
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 255, 0, 0.5);
+  letter-spacing: .05em;
+}
+
+/********************
+   =single-profile
+*********************/
+.single-profile-outer-container {
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+.single-profile-outer-container p.description-container {
+  text-align: center;
+  padding: 20px 10px;
+  color: #777;
+  text-shadow: 0 1px 0 rgba(255, 0, 0, 0.5);
+  letter-spacing: .05em;
+}
+.single-profile-outer-container .img-container img {
+  width: 100%;
+  max-width: 100%;
+}
+.single-profile-outer-container p.additional-info {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-basis: 50%;
+  justify-content: space-between;
+}
+.single-profile-outer-container p.additional-info .category {
+  font-weight: bold;
+}
+.single-profile-outer-container .button-container {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+/********************
+   =single-page
+*********************/
+.peopleCarouselImg img {
+  width: auto;
+  height: 450px;
+  max-height: 450px;
+}
+
+.complete-info .post-date {
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  color: #777;
+  text-shadow: 0 1px 0 #fff;
+  letter-spacing: .05em;
+}
+.complete-info > p {
+  line-height: 1.7em;
+  color: #777;
+  text-shadow: 0 1px 0 rgba(255, 0, 0, 0.5);
+  letter-spacing: .05em;
+}
+.complete-info .info-summary {
+  font-weight: bold;
+}
+.complete-info .info-summary > div {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+#map {
+  height: 400px;
+}
+
+/*# sourceMappingURL=style.css.map */
