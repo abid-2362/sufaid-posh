@@ -7,21 +7,12 @@ import $ from 'jquery';
 
 class SinglePageContainer extends Component {
   state = {
-    selectValue: ''
+    selectValue: '',
+    lat: 31.418746,
+    lng: 73.079123,
   }
 
   handleChange = (event, index, value) => this.setState({selectValue: value});
-  initMap() {
-    let location = {lat: 31.418746, lng: 73.079123}; // 31.418746, 73.079123 -Ghanta Ghar Faisalabad.
-    let map = new google.maps.Map(document.getElementById('map'), {// eslint-disable-line no-undef
-      zoom: 14,
-      center: location
-    });
-    new google.maps.Marker({// eslint-disable-line no-undef
-      position: location,
-      map: map
-    });
-  }
 
   componentDidMount() {
     $(document).ready(function () {
@@ -31,7 +22,7 @@ class SinglePageContainer extends Component {
         placement: 'bottom'
       });
     });
-    this.initMap();
+    // this.initMap();
   }
   render() {
     let selectOptions = {
@@ -67,7 +58,10 @@ class SinglePageContainer extends Component {
 
 
     return (
-      <SinglePage onChange={this.handleChange} selectOptions={selectOptions} listings={listings} />
+      <SinglePage
+        onChange={this.handleChange} selectOptions={selectOptions} listings={listings}
+        lat={this.state.lat} lng={this.state.lng}
+      />
     );
   }
 }

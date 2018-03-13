@@ -8,6 +8,8 @@ import NotFoundPage from './components/Common/NotFound';
 import SinglePage from './components/SinglePage/SinglePageContainer';
 import RegisterPage from './components/RegisterPage/RegisterPageContainer';
 import AbstractPage from './components/AbstractPage/AbstractContainer';
+import DonorRegistrationPage from './components/RegisterPage/DonorRegistrationForm';
+import NeedyRegistrationPage from './components/RegisterPage/NeedyRegistrationForm';
 import Footer from './components/Common/Footer';
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -23,6 +25,8 @@ class CustomRoutes extends React.Component {
           <Route exact={true} path="/abstract" component={AbstractPage} />
           <Route exact={true} path="/single-page" component={SinglePage} />
           <Route exact={true} path="/register" component={RegisterPage} />
+          <Route exact={true} path="/donor-registration" component={DonorRegistrationPage} />
+          <Route exact={true} path="/needy-registration" component={NeedyRegistrationPage} />
           {/* <Route path="/fuel-savings" component={FuelSavingsPage} />
           <Route path="/about" component={AboutPage} /> */}
           <Route component={NotFoundPage} />

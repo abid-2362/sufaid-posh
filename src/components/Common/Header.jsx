@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {NavLink, Link} from 'react-router-dom';
-import RegisterPage from "../RegisterPage/RegisterPageContainer";
+// import RegisterPage from "../RegisterPage/RegisterPageContainer";
 import LoginPage from '../LoginPage/LoginPageContainer';
+import SelectRegisterType from '../RegisterPage/SelectRegisterType';
 import $ from 'jquery';
 class Header extends Component {
   state = {
@@ -103,7 +104,7 @@ class Header extends Component {
           </ul> */}
         </div>
         <Dialog
-          title="Registration Form"
+          title="Registration Type"
           actions={registerActions}
           modal={false}
           open={this.state.registerDialogOpen}
@@ -111,7 +112,8 @@ class Header extends Component {
           autoScrollBodyContent={true}
           bodyClassName="registration-form"
         >
-          <RegisterPage />
+          {/* <RegisterPage /> */}
+          <SelectRegisterType closeRegistrationDialog={this.handleRegisterClose}/>
         </Dialog>
 
 

@@ -1,24 +1,35 @@
 import {createStore, compose, applyMiddleware} from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunk from 'redux-thunk';
+// import createHistory from 'history/createBrowserHistory';
 import createHistory from 'history/createBrowserHistory';
 // 'routerMiddleware': the new way of storing route changes with redux middleware since rrV4.
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
+import { createLogicMiddleware } from 'redux-logic';
+import arrLogic from '../reduxLogic/index';
+const deps = { // optional injected dependencies for logic
+  // anything you need to have available in your logic
+  // A_SECRET_KEY: 'dsfjsdkfjsdlfjls',
+  // firebase: firebaseInstance
+};
+const logicMiddleware = createLogicMiddleware(arrLogic, deps);
+// const logicMiddleware = createLogicMiddleware(arrLogic);
+
 export const history = createHistory();
 function configureStoreProd(initialState) {
   const reactRouterMiddleware = routerMiddleware(history);
   const middlewares = [
     // Add other middleware on this line...
-
+    logicMiddleware,
     // thunk middleware can also accept an extra argument to be passed to each thunk action
     // https://github.com/gaearon/redux-thunk#injecting-a-custom-argument
-    thunk,
+    // thunk,
     reactRouterMiddleware,
   ];
 
   return createStore(rootReducer, initialState, compose(
-    applyMiddleware(...middlewares)
+      applyMiddleware(...middlewares)
     )
   );
 }
@@ -33,7 +44,8 @@ function configureStoreDev(initialState) {
 
     // thunk middleware can also accept an extra argument to be passed to each thunk action
     // https://github.com/gaearon/redux-thunk#injecting-a-custom-argument
-    thunk,
+    // thunk,
+    logicMiddleware,
     reactRouterMiddleware,
   ];
 

@@ -5,15 +5,13 @@ import webpack from 'webpack';
 import config from '../webpack.config.prod';
 import {chalkError, chalkSuccess, chalkWarning, chalkProcessing} from './chalkConfig';
 
-// process.env.NODE_ENV = 'production'; // this assures React is built in prod mode and that the Babel dev config doesn't apply.
-process.env.NODE_ENV = 'development'; // this assures React is built in prod mode and that the Babel dev config doesn't apply.
+process.env.NODE_ENV = 'production'; // this assures React is built in prod mode and that the Babel dev config doesn't apply.
 
 console.log(chalkProcessing('Generating minified bundle. This will take a moment...'));
 
 webpack(config).watch({
   ignored: /node_modules/,
-  poll: 1000, // Check for changes every second
-  aggregateTimeout: 1000 // start compiling if no other change made in 1 second
+  aggregateTimeout: 300 // start compiling if no other change made in 1 second
 },(error, stats) => {
   if (error) { // so a fatal error occurred. Stop here.
     console.log(chalkError(error));
