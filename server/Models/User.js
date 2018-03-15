@@ -2,10 +2,12 @@ const mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 const UserSchema = new Schema({
-  email: {
+  cnicNumber: {
     type: String,
+    required: true,
     unique: true
   },
+  email: String,
   password: {
     required: true,
     type: String
@@ -23,13 +25,12 @@ const UserSchema = new Schema({
     required: true
   },
   phone: String,
-  cnicNumber: {
-    type: String,
-    required: true,
-    unique: true
+  bankDetails: String,
+  additionalInfo: String,
+  public: {
+    type: Boolean,
+    required: true
   },
-  bankName: String,
-  bankAccountNumber: String,
   userType: {
     type: String,
     default: "user"

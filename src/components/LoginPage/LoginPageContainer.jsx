@@ -1,27 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import * as loginActions from '../../actions/LoginActions';
 import LoginForm from './LoginForm';
 class LoginPageContainer extends Component {
   state = {
-    user: { email: '', password: ''},
-    errors: { email: '', password: '' }
-  }
+    user: { email: '', password: '', cnicNumber: '' },
+    errors: { email: '', password: '', cnicNumber: '' },
+    tab: 'donor'
+  };
   handleChange = (e) => {
     let user = this.state.user;
     user[e.target.name] = e.target.value;
-    this.setState({user});
-  }
-  handleSubmit = () => {
+    this.setState({ user });
+  };
+  handleSubmit = (userType) => {
     console.log('user login submit');
-    this.props.actions.loginDonor(this.state.user);
-  }
+    if(userType.toLowerCase() == "donor"){
+      this.props.actions.loginDonor(this.state.user);
+    }else if(userType.toLowerCase() == "user"){
+      this.props.actions.loginUser(this.state.user);
+    }
+  };
+  formSelector = (currentTab) => {
+    this.setState({
+      tab: currentTab,
+    });
+  };
   render() {
-    return(
+    return (
       <div>
-        <LoginForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} state={this.state} />
+        <LoginForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} state={this.state} formSelector={this.formSelector} />
       </div>
     );
   }

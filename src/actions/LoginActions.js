@@ -7,6 +7,13 @@ export function loginDonor(user) {
   }
 }
 
+export function loginUser(user) {
+  return {
+    type: types.LOGIN_USER,
+    payload: user
+  }
+}
+
 export function logout() {
   return {
     type: types.LOGOUT,

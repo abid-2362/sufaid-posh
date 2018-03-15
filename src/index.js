@@ -4,6 +4,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import configureStore, { history } from './store/configureStore';
+import { sessionService } from 'redux-react-session';
 // import App from './components/App';
 import App from './components/App';
 // import { HashRouter } from 'react-router-dom'
@@ -18,6 +19,9 @@ import './assets/js/script.js';
 import './plugins/nicescroll/js/jquery.nicescroll.min.js';
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 const store = window.store = configureStore();
+sessionService.initSessionService(store, {
+  refreshOnCheckAuth: true, redirectPath: '/', driver: 'LOCALSTORAGE'
+});
 
 render(
   <AppContainer>

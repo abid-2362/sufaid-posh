@@ -1,18 +1,18 @@
-import objectAssign from 'object-assign';
-import initialState from './initialState';
-import * as types from '../constants/constants';
+// import objectAssign from 'object-assign';
+// import initialState from './initialState';
+// import * as types from '../constants/constants';
 
-export default function loginReducer(state = initialState.loginUser, action) {
-  // let newState;
+// export default function loginReducer(state = initialState.loginUser, action) {
+//   // let newState;
 
-  switch (action.type) {
-    case types.LOGIN_DONOR_SUCCESS:
-      return action.payload;
+//   switch (action.type) {
+//     case types.LOGIN_DONOR_SUCCESS:
+//       return action.payload;
 
-    case types.LOGOUT_SUCCESS:
-      return {}
+//     case types.LOGOUT_SUCCESS:
+//       return {}
 
-    default:
-      return state;
-  }
-}
+//     default:
+//       return state;
+//   }
+// }

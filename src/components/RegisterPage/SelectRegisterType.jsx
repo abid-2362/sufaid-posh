@@ -17,7 +17,7 @@ const SelectRegisterType = ({closeRegistrationDialog}) => {
             onClick={closeRegistrationDialog}
           />
         </Link>
-        <Link to="/needy-registration">
+        <Link to="/user-registration">
           <RaisedButton
             label="Seeking for help"
             secondary

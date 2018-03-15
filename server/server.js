@@ -28,35 +28,61 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(
+
+passport.use('donor', new LocalStrategy(
   {
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
   },
   function (req, email, password, done) {
-    // Donor.findOne({email: email})
-    // .then(function(user){
-    //   // user found, compare password
-    // });
     let query = Donor.findOne({ email: email });
     query.select('email password userType');
     query.exec(function (error, user) {
       if (error) {
         done(error, null);
-      } else {
-        bcrypt.compare(password, user.password)
-        .then(function(valid){
-          if(valid) {
-            done(null, user.email);
-          }else{
-            done('Invalid Password', null);
+      } else if (user) {
+        bcrypt.compare(password, user.password, function (err, valid) {
+          if (valid) {
+            done(null, user);
+          } else {
+            done(err, null);
           }
-        })
+        });
+      } else {
+        done(error, null);
       }
     });
   }
 ));
+
+passport.use('user', new LocalStrategy(
+  {
+    usernameField: 'cnicNumber',
+    passwordField: 'password',
+    passReqToCallback: true
+  },
+  function (req, cnicNumber, password, done) {
+    let query = User.findOne({ cnicNumber: cnicNumber });
+    query.select('cnicNumber password userType');
+    query.exec(function (error, user) {
+      if (error) {
+        done(error, null);
+      } else if (user) {
+        bcrypt.compare(password, user.password, function (err, valid) {
+          if (valid) {
+            done(null, user)
+          } else {
+            done(err, null);
+          }
+        });
+      } else {
+        done(error, null);
+      }
+    });
+  }
+));
+
 
 passport.serializeUser(function (user, done) {
   let key = {
@@ -68,12 +94,12 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (key, done) {
   let Model;
-  if(key.userType.toLowerCase() == "donor") {
+  if (key.userType.toLowerCase() == "donor") {
     Model = Donor;
-  }else {
+  } else {
     Model = User;
   }
-  Model.findOne({_id: key.id}, function(err, user){
+  Model.findById(key.id, function (err, user) {
     done(null, user);
   });
 });

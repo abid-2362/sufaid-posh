@@ -16,17 +16,14 @@ class Header extends Component {
     registerDialogOpen: false,
     loginDialogOpen: false,
     userId: '',
-    authenticated: false,
+    authenticated: this.props.authenticated,
   };
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.loggedInUser.id){
-      if( this.state.userId != nextProps.loggedInUser.id ) {
-        this.handleLoginClose();
-        this.setState({userId: nextProps.loggedInUser.id, authenticated: true})
-      }
-    } else {
-      this.setState({userId: '', authenticated: false})
+    if(nextProps.authenticated != this.state.authenticated) {
+      let userId = nextProps.user.id;
+      this.setState({authenticated: nextProps.authenticated, userId});
+      this.handleLoginClose();
     }
   }
 
@@ -154,7 +151,7 @@ class Header extends Component {
 
 
         <Dialog
-          title="Login Form"
+          // title="Login Form"
           actions={loginActions}
           modal={false}
           open={this.state.loginDialogOpen}
@@ -170,12 +167,15 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  authenticated: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    loggedInUser: state.loggedInUser
+    authenticated: state.session.authenticated,
+    user: state.session.user
   }
 }
 

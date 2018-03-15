@@ -1,11 +1,22 @@
 import {createStore, compose, applyMiddleware} from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
 // import createHistory from 'history/createBrowserHistory';
 import createHistory from 'history/createBrowserHistory';
 // 'routerMiddleware': the new way of storing route changes with redux middleware since rrV4.
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
+
+// redux persist to get store back after page refresh
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+// redux-logic implementation
 import { createLogicMiddleware } from 'redux-logic';
 import arrLogic from '../reduxLogic/index';
 const deps = { // optional injected dependencies for logic
@@ -28,7 +39,7 @@ function configureStoreProd(initialState) {
     reactRouterMiddleware,
   ];
 
-  return createStore(rootReducer, initialState, compose(
+  return createStore(persistedReducer, initialState, compose(
       applyMiddleware(...middlewares)
     )
   );
@@ -50,7 +61,7 @@ function configureStoreDev(initialState) {
   ];
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
-  const store = createStore(rootReducer, initialState, composeEnhancers(
+  const store = createStore(persistedReducer, initialState, composeEnhancers(
     applyMiddleware(...middlewares)
     )
   );

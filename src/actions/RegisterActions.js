@@ -6,3 +6,10 @@ export function registerDonorUser(user) {
     payload: user
   }
 }
+
+export function registerUser(user) {
+  return {
+    type: types.REGISTER_USER,
+    payload: user
+  }
+}
