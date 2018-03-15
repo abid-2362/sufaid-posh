@@ -1,10 +1,8 @@
 import registrationLogic from './registrationLogic';
+import loginDonorLogic from './loginLogic';
 
-
-
-// console.log('registrationLogic->index', registrationLogic);
 
 export default [
-  ...registrationLogic
+  ...registrationLogic,
+  ...loginDonorLogic
 ];
-// I was implementing the redux logic. will start from here next time

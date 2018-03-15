@@ -13,7 +13,7 @@ export default class App extends Component {
           <CustomRoutes />
         </ConnectedRouter> */}
         <HashRouter>
-          <CustomRoutes />
+            <CustomRoutes />
         </HashRouter>
       </Provider>
     );

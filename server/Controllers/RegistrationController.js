@@ -9,8 +9,7 @@ const RegistrationController = {
 
   donorRegister: function(user) {
     return new Promise(function(resolve, reject){
-      // possible to use promise api as well if available.
-      // bcrypt.hash(user.password, saltRounds).then(function(hash) { /*do something with hash*/});
+      // promise api should be available. This will work properly only if promise api is available.
       bcrypt.hash(user.password, saltRounds)
       .then(function(passwordHash) {
         const donor = new Donor();

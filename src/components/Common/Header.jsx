@@ -1,16 +1,34 @@
 import React, {Component} from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import {NavLink, Link} from 'react-router-dom';
+import {withRouter, NavLink, Link} from 'react-router-dom';
 // import RegisterPage from "../RegisterPage/RegisterPageContainer";
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import { bindActionCreators } from "redux";
+import * as loginActions from '../../actions/LoginActions';
 import LoginPage from '../LoginPage/LoginPageContainer';
 import SelectRegisterType from '../RegisterPage/SelectRegisterType';
 import $ from 'jquery';
+
 class Header extends Component {
   state = {
     registerDialogOpen: false,
-    loginDialogOpen: false
+    loginDialogOpen: false,
+    userId: '',
+    authenticated: false,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.loggedInUser.id){
+      if( this.state.userId != nextProps.loggedInUser.id ) {
+        this.handleLoginClose();
+        this.setState({userId: nextProps.loggedInUser.id, authenticated: true})
+      }
+    } else {
+      this.setState({userId: '', authenticated: false})
+    }
+  }
 
   handleRegisterOpen = () => {
     this.setState({registerDialogOpen: true});
@@ -35,6 +53,10 @@ class Header extends Component {
     $('.login-form').hide(); // avoids flashing the scroller at closing of dialog
     this.setState({loginDialogOpen: false});
   };
+
+  handleLogout = () => {
+    this.props.actions.logout();
+  }
 
   componentDidMount() {
 
@@ -82,14 +104,28 @@ class Header extends Component {
                 </li>
 
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/single-page">Single Page</NavLink>
+                  <NavLink exact={true} className="nav-link" to="/single-page">Single Page</NavLink>
                 </li>
-                <li className="nav-item">
-                  <a href="javascript:void(0)" className="nav-link" onClick={this.handleRegisterOpen}>Register</a>
-                </li>
-                <li className="nav-item">
-                  <a href="javascript:void(0)" className="nav-link" onClick={this.handleLoginOpen}>Login</a>
-                </li>
+                {!this.state.authenticated ?
+                (
+                  <li className="nav-item">
+                    <a href="javascript:void(0)" className="nav-link" onClick={this.handleRegisterOpen}>Register</a>
+                  </li>
+                )
+                : null
+                }
+                {!this.state.authenticated ?
+                (
+                  <li className="nav-item">
+                    <a href="javascript:void(0)" className="nav-link" onClick={this.handleLoginOpen}>Login</a>
+                  </li>
+                ) :
+                (
+                  <li className="nav-item">
+                    <a href="javascript:void(0)" className="nav-link" onClick={this.handleLogout}>Logout</a>
+                  </li>
+                )
+                }
               </ul>
             </div>
           </div>
@@ -133,4 +169,20 @@ class Header extends Component {
   }
 }
 
-export default Header;
+Header.propTypes = {
+  actions: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    loggedInUser: state.loggedInUser
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    actions: bindActionCreators(loginActions, dispatch)
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

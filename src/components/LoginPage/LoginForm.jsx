@@ -2,14 +2,14 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import PropTypes from 'prop-types';
-
+import { API_URL as url } from "../../constants/constants";
 const LoginForm = ({handleChange, handleSubmit, state}) => {
   const {
     user,
     errors
   } = state;
   return(
-    <form action="" id="registrationForm">
+    <form id="registrationForm">
       <div className="form-group">
         <TextField
           fullWidth={true}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-// import {bindActionCreators} from 'redux';
+import {bindActionCreators} from 'redux';
+import * as loginActions from '../../actions/LoginActions';
 import LoginForm from './LoginForm';
 class LoginPageContainer extends Component {
   state = {
@@ -15,6 +16,7 @@ class LoginPageContainer extends Component {
   }
   handleSubmit = () => {
     console.log('user login submit');
+    this.props.actions.loginDonor(this.state.user);
   }
   render() {
     return(
@@ -26,7 +28,8 @@ class LoginPageContainer extends Component {
 }
 
 LoginPageContainer.propTypes = {
-  // myProp: PropTypes.string.isRequired
+  actions: PropTypes.object.isRequired
+
 }
 
 function mapStateToProps(state, ownProps) {
@@ -37,7 +40,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // actions: bindActionCreators(actions, dipatch)
+    actions: bindActionCreators(loginActions, dispatch)
   };
 }
 

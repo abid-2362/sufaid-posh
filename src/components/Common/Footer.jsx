@@ -6,39 +6,6 @@ import RegisterPage from "../RegisterPage/RegisterPageContainer";
 import LoginPage from '../LoginPage/LoginPageContainer';
 import $ from 'jquery';
 class Footer extends Component {
-  state = {
-    registerDialogOpen: false,
-    loginDialogOpen: false
-  };
-
-  handleRegisterOpen = () => {
-    this.setState({registerDialogOpen: true});
-    setTimeout(() => {
-      $('.registration-form').niceScroll();
-    }, 50);
-  };
-
-  handleRegisterClose = () => {
-    $('.registration-form').hide(); // avoids flashing the scroller at closing of dialog
-    this.setState({registerDialogOpen: false});
-  };
-
-  handleLoginOpen = () => {
-    this.setState({loginDialogOpen: true});
-    setTimeout(() => {
-      $('.registration-form').niceScroll();
-    }, 50);
-  };
-
-  handleLoginClose = () => {
-    $('.login-form').hide(); // avoids flashing the scroller at closing of dialog
-    this.setState({loginDialogOpen: false});
-  };
-
-  componentDidMount() {
-
-  }
-
 
   render() {
     const registerActions = [
