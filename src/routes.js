@@ -10,6 +10,7 @@ import RegisterPage from './components/RegisterPage/RegisterPageContainer';
 import AbstractPage from './components/AbstractPage/AbstractContainer';
 import DonorRegistrationPage from './components/RegisterPage/DonorRegistrationForm';
 import UserRegistrationPage from './components/RegisterPage/UserRegistrationForm';
+import CreateListingPage from './components/CreateListingPage/CreateListingPageContainer';
 import Footer from './components/Common/Footer';
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -27,8 +28,7 @@ class CustomRoutes extends React.Component {
           <Route exact={true} path="/register" component={RegisterPage} />
           <Route exact={true} path="/donor-registration" component={DonorRegistrationPage} />
           <Route exact={true} path="/user-registration" component={UserRegistrationPage} />
-          {/* <Route path="/fuel-savings" component={FuelSavingsPage} />
-          <Route path="/about" component={AboutPage} /> */}
+          <Route exact={true} path="/create-listing" component={CreateListingPage} />
           <Route component={NotFoundPage} />
         </Switch>
         <Footer/>

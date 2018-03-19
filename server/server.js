@@ -83,7 +83,6 @@ passport.use('user', new LocalStrategy(
   }
 ));
 
-
 passport.serializeUser(function (user, done) {
   let key = {
     id: user._id,

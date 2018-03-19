@@ -104,7 +104,6 @@ class DonorRegistrationForm extends Component {
       return;
     }
 
-    console.log('handleDonorRegistration', this.state.user);
     this.props.actions.registerDonorUser(this.state.user);
 
     // send user registration request, if registered then

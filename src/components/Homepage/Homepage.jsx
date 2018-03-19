@@ -1,14 +1,13 @@
 import React from 'react';
 import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+// import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 import PeopleListing from '../Common/PeopleListing';
+import UtilityFunctions from '../../constants/UtilityFunctions';
 const Homepage = ({onChange, selectOptions, listings}) => {
-  let {value, options} = selectOptions;
-  const items = options.map((item, index) => {
-    return <MenuItem key={index} value={item} primaryText={item} />
-  });
+  let {value} = selectOptions;
+  const categories = UtilityFunctions.getCategories();
 
   let peopleListings = listings.map((listing, index) => {
     return (
@@ -31,7 +30,7 @@ const Homepage = ({onChange, selectOptions, listings}) => {
                   onChange={onChange}
                   hintText="Category"
                 >
-                  {items}
+                  {categories}
                 </SelectField>
               </div>
               <div className="col-12 col-sm-6 col-md-4 offset-md-4">

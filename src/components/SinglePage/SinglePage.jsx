@@ -179,8 +179,8 @@ SinglePage.propTypes = {
   // onChange: PropTypes.func.isRequired,
   // selectOptions: PropTypes.object.isRequired,
   // listings: PropTypes.array.isRequired
-  lat: PropTypes.number.isRequired,
-  lng: PropTypes.number.isRequired
+  lat: PropTypes.number,
+  lng: PropTypes.number
 }
 
 export default SinglePage;

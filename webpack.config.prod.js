@@ -7,8 +7,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 
 const GLOBALS = {
-  // 'process.env.NODE_ENV': JSON.stringify('production'),
-  'process.env.NODE_ENV': JSON.stringify('development'),
+  'process.env.NODE_ENV': JSON.stringify('production'),
+  // 'process.env.NODE_ENV': JSON.stringify('development'),
   __DEV__: false
 };
 
@@ -58,7 +58,7 @@ export default {
     }),
 
     // Minify JS
-    // new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
+    new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
   ],
   module: {
     rules: [
@@ -135,7 +135,7 @@ export default {
       },
       {
         test: /(\.css|\.scss|\.sass)$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           use: [
             {

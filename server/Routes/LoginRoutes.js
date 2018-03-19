@@ -39,6 +39,7 @@ router.route('/donor')
       if (req.user) {
         let userData = {};
         userData.id = req.user._id;
+        userData.userType = req.user.userType;
         res.json({ status: "ok", message: "Login successful", user: userData });
       } else {
         res.send({ status: "error", message: "Invalid login credentials" });
@@ -61,6 +62,7 @@ router.route('/user')
       if (req.user) {
         let userData = {};
         userData.id = req.user._id;
+        userData.userType = req.user.userType;
         res.json({ status: "ok", message: "Login successful", user: userData });
       } else {
         res.send({ status: "error", message: "Invalid login credentials" });

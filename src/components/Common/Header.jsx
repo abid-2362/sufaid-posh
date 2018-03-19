@@ -24,6 +24,7 @@ class Header extends Component {
       let userId = nextProps.user.id;
       this.setState({authenticated: nextProps.authenticated, userId});
       this.handleLoginClose();
+      this.props.history.push('/');
     }
   }
 
@@ -58,7 +59,6 @@ class Header extends Component {
   componentDidMount() {
 
   }
-
 
   render() {
     const registerActions = [
@@ -100,9 +100,18 @@ class Header extends Component {
                   <NavLink exact={true} className="nav-link" to="/">Home</NavLink>
                 </li>
 
-                <li className="nav-item">
+                {this.props.user.userType == "user" ?
+                (
+                  <li className="nav-item">
+                    <NavLink exact={true} className="nav-link" to="/create-listing">Create Listing</NavLink>
+                  </li>
+                ) : null
+
+                }
+
+                {/* <li className="nav-item">
                   <NavLink exact={true} className="nav-link" to="/single-page">Single Page</NavLink>
-                </li>
+                </li> */}
                 {!this.state.authenticated ?
                 (
                   <li className="nav-item">
@@ -130,11 +139,6 @@ class Header extends Component {
 
         <div className="container header-content header-info">
           <h3>Sufaid Posh</h3>
-          {/* <ul className="list-inline">
-            <li className="list-inline-item">Home</li>
-            <li className="list-inline-item">Page</li>
-            <li className="list-inline-item">Page Name</li>
-          </ul> */}
         </div>
         <Dialog
           title="Registration Type"
@@ -169,7 +173,8 @@ class Header extends Component {
 Header.propTypes = {
   actions: PropTypes.object.isRequired,
   authenticated: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => {
