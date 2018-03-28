@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from "redux";
 import * as loginActions from '../../actions/LoginActions';
 import LoginPage from '../LoginPage/LoginPageContainer';
-import SelectRegisterType from '../RegisterPage/SelectRegisterType';
+// import SelectRegisterType from '../RegisterPage/SelectRegisterType';
 import $ from 'jquery';
 
 class Header extends Component {
@@ -27,18 +27,6 @@ class Header extends Component {
       this.props.history.push('/');
     }
   }
-
-  handleRegisterOpen = () => {
-    this.setState({registerDialogOpen: true});
-    setTimeout(() => {
-      $('.registration-form').niceScroll();
-    }, 50);
-  };
-
-  handleRegisterClose = () => {
-    $('.registration-form').hide(); // avoids flashing the scroller at closing of dialog
-    this.setState({registerDialogOpen: false});
-  };
 
   handleLoginOpen = () => {
     this.setState({loginDialogOpen: true});
@@ -61,14 +49,7 @@ class Header extends Component {
   }
 
   render() {
-    const registerActions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleRegisterClose}
-        key={1}
-      />
-    ];
+
     const loginActions = [
       <FlatButton
         label="Cancel"
@@ -100,7 +81,7 @@ class Header extends Component {
                   <NavLink exact={true} className="nav-link" to="/">Home</NavLink>
                 </li>
 
-                {this.props.user.userType == "user" ?
+                {this.props.user.userType == "seeker" ?
                 (
                   <li className="nav-item">
                     <NavLink exact={true} className="nav-link" to="/create-listing">Create Listing</NavLink>
@@ -115,7 +96,8 @@ class Header extends Component {
                 {!this.state.authenticated ?
                 (
                   <li className="nav-item">
-                    <a href="javascript:void(0)" className="nav-link" onClick={this.handleRegisterOpen}>Register</a>
+                    {/* <a href="javascript:void(0)" className="nav-link" onClick={this.handleRegisterOpen}>Register</a> */}
+                    <NavLink to="/register" className="nav-link">Register</NavLink>
                   </li>
                 )
                 : null
@@ -140,19 +122,6 @@ class Header extends Component {
         <div className="container header-content header-info">
           <h3>Sufaid Posh</h3>
         </div>
-        <Dialog
-          title="Registration Type"
-          actions={registerActions}
-          modal={false}
-          open={this.state.registerDialogOpen}
-          onRequestClose={this.handleRegisterClose}
-          autoScrollBodyContent={true}
-          bodyClassName="registration-form"
-        >
-          {/* <RegisterPage /> */}
-          <SelectRegisterType closeRegistrationDialog={this.handleRegisterClose}/>
-        </Dialog>
-
 
         <Dialog
           // title="Login Form"

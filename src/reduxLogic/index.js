@@ -1,8 +1,10 @@
 import registrationLogic from './registrationLogic';
-import loginDonorLogic from './loginLogic';
+import loginLogic from './loginLogic';
+import listingsLogic from './listingsLogic';
 
 
 export default [
   ...registrationLogic,
-  ...loginDonorLogic
+  ...loginLogic,
+  ...listingsLogic,
 ];

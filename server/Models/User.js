@@ -2,12 +2,11 @@ const mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 const UserSchema = new Schema({
-  cnicNumber: {
+  username: {
     type: String,
-    required: true,
-    unique: true
+    unique: true,
+    required: true
   },
-  email: String,
   password: {
     required: true,
     type: String
@@ -16,25 +15,24 @@ const UserSchema = new Schema({
     required: true,
     type: String
   },
-  city: {
-    required: true,
-    type: String
-  },
+  email: String,
   address: {
     type: String,
     required: true
   },
+  city: {
+    required: true,
+    type: String
+  },
   phone: String,
+  cnicNumber: String,
   bankDetails: String,
   additionalInfo: String,
   public: {
     type: Boolean,
-    required: true
+    default: false
   },
-  userType: {
-    type: String,
-    default: "user"
-  }
+  userRole: String
 });
 
 module.exports = mongoose.model('User', UserSchema);

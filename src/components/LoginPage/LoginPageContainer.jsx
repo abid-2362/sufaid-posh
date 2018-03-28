@@ -6,32 +6,21 @@ import * as loginActions from '../../actions/LoginActions';
 import LoginForm from './LoginForm';
 class LoginPageContainer extends Component {
   state = {
-    user: { email: '', password: '', cnicNumber: '' },
-    errors: { email: '', password: '', cnicNumber: '' },
-    tab: 'donor'
+    user: { username: '', password: '' },
+    errors: { username: '', password: '' },
   };
   handleChange = (e) => {
     let user = this.state.user;
     user[e.target.name] = e.target.value;
     this.setState({ user });
   };
-  handleSubmit = (userType) => {
-    console.log('user login submit');
-    if(userType.toLowerCase() == "donor"){
-      this.props.actions.loginDonor(this.state.user);
-    }else if(userType.toLowerCase() == "user"){
-      this.props.actions.loginUser(this.state.user);
-    }
-  };
-  formSelector = (currentTab) => {
-    this.setState({
-      tab: currentTab,
-    });
+  handleSubmit = () => {
+    this.props.actions.loginUser(this.state.user);
   };
   render() {
     return (
       <div>
-        <LoginForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} state={this.state} formSelector={this.formSelector} />
+        <LoginForm handleChange={this.handleChange} handleSubmit={this.handleSubmit} state={this.state} />
       </div>
     );
   }
@@ -44,7 +33,7 @@ LoginPageContainer.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    state: state
+    // state: state
   }
 }
 

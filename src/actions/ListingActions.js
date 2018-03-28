@@ -13,3 +13,16 @@ export function createListingSuccess(listing) {
     payload: listing
   }
 }
+
+export function loadAllListings() {
+  return {
+    type: types.LOAD_ALL_LISTINGS,
+  }
+}
+
+export function loadAllListingsSuccess(listings) {
+  return {
+    type: types.LOAD_ALL_LISTINGS_SUCCESS,
+    payload: listings
+  }
+}

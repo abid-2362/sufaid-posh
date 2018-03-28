@@ -24,7 +24,7 @@ class CustomRoutes extends React.Component {
         <Switch>
           <Route exact={true} path="/" component={Homepage} />
           <Route exact={true} path="/abstract" component={AbstractPage} />
-          <Route exact={true} path="/single-page" component={SinglePage} />
+          <Route exact={true} path="/single-page/:id" component={SinglePage} />
           <Route exact={true} path="/register" component={RegisterPage} />
           <Route exact={true} path="/donor-registration" component={DonorRegistrationPage} />
           <Route exact={true} path="/user-registration" component={UserRegistrationPage} />

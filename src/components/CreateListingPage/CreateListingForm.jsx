@@ -8,6 +8,9 @@ import UtilityFunctions from '../../constants/UtilityFunctions';
 import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
+// import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import Tags from './../Common/Tags';
 
 const styles = {
   block: {
@@ -19,8 +22,15 @@ const styles = {
   },
 };
 
-const CreateListingForm = ({ state, handleChange, handleCostRepeater, submitListing, handleCheckBox, handleCategory }) => {
-  const { listing, errors, disableSubmitListing } = state;
+const sourceTags=[
+  {label:"Food & Clothing"},
+  {label:"Education Scholarship"},
+  {label:"Medicines"},
+];
+
+
+const CreateListingForm = ({ state, handleChange, handleCostRepeater, submitListing, handleCheckBox, handleCategory, onRequirementChange }) => {
+  const { listing, errors, disableSubmitButton } = state;
   const requirements = UtilityFunctions.getRequirementList(listing.requirementsArray);
   const categories = UtilityFunctions.getCategories();
   return (
@@ -43,6 +53,7 @@ const CreateListingForm = ({ state, handleChange, handleCostRepeater, submitList
                 floatingLabelFixed={true}
                 hintText="Category"
                 maxHeight={200}
+                errorText={errors.category}
               >
                 {categories}
               </SelectField>
@@ -80,20 +91,21 @@ const CreateListingForm = ({ state, handleChange, handleCostRepeater, submitList
           </div>
 
           <div className="form-group">
-            <TextField
-              hintText="Separate the requirements with a comma(,) and they will appear in a list"
-              fullWidth={true}
-              name="requirements"
-              type="text"
-              floatingLabelText="Requirements List"
-              floatingLabelFixed={true}
-              onChange={handleChange}
-              value={listing.requirements}
-              errorText={errors.requirements}
+            <Tags
+              textField={
+                {
+                  hintText: 'Requirements List', name: 'requirements', type: 'text',
+                  floatingLabelText: 'Requirement List', floatingLabelFixed: true,
+                  errorText: errors.requirements, fullWidth: true
+                }
+              }
+              button={null}
+              defTags={[]}
+              sourceTags={sourceTags}
+              style={{margin:0}}
+              onRemove={onRequirementChange}
+              onAdd={onRequirementChange}
             />
-            <ul>
-              {requirements}
-            </ul>
           </div>
 
           <div className="form-group row">
@@ -128,7 +140,20 @@ const CreateListingForm = ({ state, handleChange, handleCostRepeater, submitList
             </div>
           </div>
 
+          <h4>Personal Information</h4>
           <div className="form-group row">
+            <div className="col-12 col-sm-4">
+              <TextField
+                hintText="Full Name"
+                fullWidth={true}
+                name="name"
+                floatingLabelText="Full Name"
+                floatingLabelFixed={true}
+                onChange={handleChange}
+                value={listing.name}
+                errorText={errors.name}
+              />
+            </div>
             <div className="col-12 col-sm-8">
               <TextField
                 hintText="Please provide complete address of the needy person."
@@ -141,6 +166,9 @@ const CreateListingForm = ({ state, handleChange, handleCostRepeater, submitList
                 errorText={errors.address}
               />
             </div>
+          </div>
+
+          <div className="form-group row">
             <div className="col-12 col-sm-4">
               <TextField
                 hintText="City Name"
@@ -153,45 +181,56 @@ const CreateListingForm = ({ state, handleChange, handleCostRepeater, submitList
                 errorText={errors.city}
               />
             </div>
-          </div>
-
-          <div className="form-group">
-            <TextField
-              hintText="Phone Number (if available)"
-              fullWidth={true}
-              name="phone"
-              floatingLabelText="Phone Number"
-              floatingLabelFixed={true}
-              onChange={handleChange}
-              value={listing.phone}
-              errorText={errors.phone}
-            />
+            <div className="col-12 col-sm-4">
+              <TextField
+                hintText="Phone Number (if available)"
+                fullWidth={true}
+                name="phone"
+                floatingLabelText="Phone Number"
+                floatingLabelFixed={true}
+                onChange={handleChange}
+                value={listing.phone}
+                errorText={errors.phone}
+              />
+            </div>
+            <div className="col-12 col-sm-4">
+              <TextField
+                hintText="CNIC Number"
+                fullWidth={true}
+                name="cnicNumber"
+                floatingLabelText="CNIC Number"
+                floatingLabelFixed={true}
+                onChange={handleChange}
+                value={listing.cnicNumber}
+                errorText={errors.cnicNumber}
+              />
+            </div>
           </div>
 
           <div className="form-group">
             <Checkbox
               checkedIcon={<Visibility />}
               uncheckedIcon={<VisibilityOff />}
-              label={ listing.public ? "Display my information publicly." : "Display my information only to the interested people." }
+              label={ listing.public ? "Display my personal information publicly." : "Display my personal information only to the interested people." }
               style={styles.checkbox}
               onCheck={handleCheckBox}
             />
           </div>
-{/* city and category is missing yet. */}
+
           <div className="form-group">
             <RaisedButton
               label="Preview Listing"
               secondary={true}
               style={{ marginTop: 12, marginRight: 12 }}
               // onClick={previewListing}
-              disabled={disableSubmitListing}
+              disabled={disableSubmitButton}
             />
             <RaisedButton
               label="Submit Listing"
               primary={true}
               style={{ marginTop: 12 }}
               onClick={submitListing}
-              disabled={disableSubmitListing}
+              disabled={disableSubmitButton}
             />
           </div>
         </form>
@@ -206,7 +245,8 @@ CreateListingForm.propTypes = {
   submitListing: PropTypes.func.isRequired,
   handleCostRepeater: PropTypes.func,
   handleCheckBox: PropTypes.func,
-  handleCategory: PropTypes.func
+  handleCategory: PropTypes.func,
+  onRequirementChange: PropTypes.func
 }
 
 export default CreateListingForm;

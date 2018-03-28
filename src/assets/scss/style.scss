@@ -122,6 +122,11 @@ h2,h3,h4 {
   // }
 }
 
+.urdu {
+  font-family: 'Jameel Noori Nastaleeq', sans-serif;
+  text-align: right;
+}
+
 section {
   padding: 70px 0;
 }
@@ -138,81 +143,9 @@ section#volunteers {
     @include description(#fff, rgba(0, 255 ,0 ,0.5));
   }
 }
+@import '../../components/Homepage/scss/homepage';
 
-
-/********************
-   =single-profile
-*********************/
-.single-profile-outer-container {
-  background-color: #fff;
-  margin-bottom: 20px;
-
-  p.description-container {
-    // border: 1px solid red;
-    text-align: center;
-    padding: 20px 10px;
-    @include description(#777, rgba(255, 0 ,0 ,0.5));
-  }
-  .img-container {
-    img {
-      width: 100%;
-      max-width: 100%;
-    }
-  }
-  p.additional-info {
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    flex-basis: 50%;
-    justify-content: space-between;
-    .category {
-      font-weight: bold;
-    }
-  }
-  .button-container {
-    text-align: center;
-    padding-bottom: 30px;
-  }
-}
-
-/********************
-   =single-page
-*********************/
-
-// =carousel
-.peopleCarouselImg {
-  img{
-    width: auto;
-    height: 450px;
-    max-height: 450px;
-  }
-}
-
-// =complete-info
-.complete-info {
-  .post-date {
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    @include description(#777, #fff);
-
-  }
-  > p {
-    line-height: 1.7em;
-    @include description(#777, rgba(255, 0 ,0 ,0.5));
-  }
-  .info-summary {
-    font-weight: bold;
-    >div {
-      margin-bottom: 30px;
-      border-bottom: 1px solid #e8e8e8;
-    }
-  }
-}
-
-// location-map
-#map {
-  height: 400px;
-}
+@import '../../components/SinglePage/scss/_SinglePage';
 
 /********************
    =footer

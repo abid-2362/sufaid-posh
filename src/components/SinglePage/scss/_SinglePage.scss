@@ -1,0 +1,40 @@
+
+/********************
+   =single-page
+*********************/
+
+// =carousel
+.peopleCarouselImg {
+  img{
+    width: auto;
+    height: 450px;
+    max-height: 450px;
+  }
+}
+
+// =complete-info
+.complete-info {
+  .post-date {
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    @include description(#777, #fff);
+
+  }
+  > p {
+    line-height: 1.7em;
+    white-space: pre-wrap;
+    @include description(#777, rgba(255, 0 ,0 ,0.5));
+  }
+  .info-summary {
+    font-weight: bold;
+    >div {
+      margin-bottom: 30px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+  }
+}
+
+// location-map
+#map {
+  height: 400px;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import Chip from 'material-ui/Chip';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -18,7 +19,7 @@ class Tags extends Component {
       errorText: null,
       sourceTags: props.sourceTags.slice() //copy of source tags - we will change it
     }
-
+    this.AutoCompleteRef;
     //elimination existsing tags from source tags
     this.state.sourceTags = this.state.sourceTags.filter((tag) => {
 
@@ -70,9 +71,8 @@ class Tags extends Component {
 
   //after enter key press
   handleKeyPress(e) {
-
-    if (e.charCode === 13) {//enter
-
+    if (e.charCode === 13 || e.charCode === 44) {//enter or comma
+      e.preventDefault();
       this.add(e.target.value);
 
     }
@@ -81,7 +81,8 @@ class Tags extends Component {
   //after click autocomplete
   handleAutocomplete(value) {
 
-    this.refs.textField.focus();
+    // this.refs.textField.focus(); // this is deprecated now.
+    this.AutoCompleteRef.focus(); // use this instead;
 
     if (typeof value !== "object")
       return;
@@ -259,14 +260,14 @@ class Tags extends Component {
       <div>
         <div>
           <AutoComplete {...this.props.textField}
-            ref="textField"
+            ref={(el) => this.AutoCompleteRef = el}
             disableFocusRipple={false}
             searchText={this.state.value}
             dataSourceConfig={{ text: 'label', value: 'label' }}
             dataSource={this.state.sourceTags}
             onNewRequest={this.handleAutocomplete.bind(this)}
             onUpdateInput={this.handleTextValueChange.bind(this)}
-            errorText={this.state.errorText}
+            errorText={this.props.textField.errorText ? this.props.textField.errorText : this.state.errorText}
             onKeyPress={this.handleKeyPress.bind(this)} />
           {button}
         </div>
@@ -283,18 +284,18 @@ class Tags extends Component {
 
 //props definitions
 Tags.propTypes = {
-  defTags: React.PropTypes.array, //start tags
-  sourceTags: React.PropTypes.array, //tags created before and used in autocomplete
-  onlyFromSource: React.PropTypes.bool, //if true it will not allow to add tag which not exists in tag list
-  onlyFromSourceErrorText: React.PropTypes.string, //error info when onlyFromSource is on true and user wants add other tag
-  textField: React.PropTypes.object, //textField props
-  chip: React.PropTypes.object, //chip props
-  containerClassName: React.PropTypes.string, //class for container
-  containerStyle: React.PropTypes.object, //style for container
-  onRemove: React.PropTypes.func, //remove, delete tag callback function(removedTag,allTags)
-  onAdd: React.PropTypes.func, //add callback  function(addedTag,allTags)
-  button: React.PropTypes.object, //button props - it has child prop inside
-  handleInputChange: React.PropTypes.func
+  defTags: PropTypes.array, //start tags
+  sourceTags: PropTypes.array, //tags created before and used in autocomplete
+  onlyFromSource: PropTypes.bool, //if true it will not allow to add tag which not exists in tag list
+  onlyFromSourceErrorText: PropTypes.string, //error info when onlyFromSource is on true and user wants add other tag
+  textField: PropTypes.object, //textField props
+  chip: PropTypes.object, //chip props
+  containerClassName: PropTypes.string, //class for container
+  containerStyle: PropTypes.object, //style for container
+  onRemove: PropTypes.func, //remove, delete tag callback function(removedTag,allTags)
+  onAdd: PropTypes.func, //add callback  function(addedTag,allTags)
+  button: PropTypes.object, //button props - it has child prop inside
+  handleInputChange: PropTypes.func
 
 };
 

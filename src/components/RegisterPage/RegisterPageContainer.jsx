@@ -6,21 +6,14 @@ import $ from 'jquery';
 import RegisterPage from './RegisterPage';
 
 class RegisterPageContainer extends Component {
-  state = {
-    user: {
-      name: '',
-      email: '',
-      city: '',
-      phone: '',
-    },
-    errors: {
-      name: '',
-      email: '',
-      city: '',
-      phone: '',
-    }
+  resetUser = () => {
+    return { userRole: 'donor', username: '', email: '', password: '', name:'',  address:'', city: '', phone: '', cnicNumber: '', bankDetails: '', additionalInfo: '', public: false };
   }
-
+  state = {
+    user: this.resetUser(),
+    errors: this.resetUser()
+  }
+/*
   handleChange = (e) => {
     let user = this.state.user;
     user[e.target.name] = e.target.value;
@@ -30,12 +23,18 @@ class RegisterPageContainer extends Component {
   handleSubmit = (e) => {
     console.log('form submitted');
   }
+*/
+  handleRoleRadioButton = (e, value) => {
+    let user = this.state.user;
+    user.userRole = value;
+    this.setState({user});
+  }
 
 
   render() {
     const {user, errors} = this.state;
     return(
-      <RegisterPage handleChange={this.handleChange} user={user} errors={errors} handleSubmit={this.handleSubmit} />
+      <RegisterPage handleRoleRadioButton={this.handleRoleRadioButton} user={user} errors={errors} />
     );
   }
 }

@@ -3,18 +3,18 @@ const redirect = config.redirect;
 
 const EnsureAuthentication = {
   userAuthentication: function(req, res, next) {
-    if(req.user && req.user.userType.toLowerCase() == "user"){
+    if(req.user && req.user.userRole.toLowerCase() == "seeker"){
       next();
     }else{
-      res.redirect(redirect);
+      res.send(401);
     }
   },
 
   donorAuthentication: function(req, res, next) {
-    if(req.user && req.user.userType.toLowerCase() == "donor"){
+    if(req.user && req.user.userRole.toLowerCase() == "donor"){
       next();
     }else{
-      res.redirect(redirect);
+      res.send(401);
     }
   }
 };

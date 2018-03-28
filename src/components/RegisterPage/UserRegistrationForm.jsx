@@ -6,21 +6,23 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
+// import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import * as registrationActions from '../../actions/RegisterActions';
 import './scss/registration.scss';
 import RaisedButton from 'material-ui/RaisedButton/';
 import isEmail from 'validator/lib/isEmail';
 import isNumeric from 'validator/lib/isNumeric';
 import isEmpty from 'validator/lib/isEmpty';
-import isAlpha from 'validator/lib/isAlpha';
+// import isAlpha from 'validator/lib/isAlpha';
+import isAlphanumeric from 'validator/lib/isAlphanumeric';
 
 class UserRegistrationForm extends Component {
 
   resetErrors = () => {
-    return { email: '', password: '', name:'',  address:'', city: '', phone: '', cnicNumber: '', bankDetails: '', additionalInfo: '' };
+    return { userRole: 'seeker', username: '', email: '', password: '', name:'',  address:'', city: '', phone: '', cnicNumber: '', bankDetails: '', additionalInfo: '' };
   }
   resetUser = () => {
-    return { email: '', password: '', name:'',  address:'', city: '', phone: '', cnicNumber: '', bankDetails: '', additionalInfo: '', public: false };
+    return { userRole: 'seeker', username: '', email: '', password: '', name:'',  address:'', city: '', phone: '', cnicNumber: '', bankDetails: '', additionalInfo: '', public: false };
   }
 
   state = {
@@ -36,12 +38,15 @@ class UserRegistrationForm extends Component {
     let errors = this.resetErrors(); // reset errors before validating
     let user = this.state.user;
 
-    /*
-    if(user.username.length < 3) {
-      errors.username = "Username must be atleast 3 characters long";
+    if(user.username.length < 3 || user.username.length > 20) {
+      errors.username = "Username must be between 3 to 20 characters long";
       valid = false;
     }
-    */
+    if(!isAlphanumeric(user.username)) {
+      errors.username = "Username must be alphanumeric value";
+      valid = false;
+    }
+
     // email
     if(!isEmpty(user.email) && !isEmail(user.email)) {
       errors.email = "Please provide a valid email address or leave this field blank"
@@ -67,8 +72,8 @@ class UserRegistrationForm extends Component {
       valid = false;
     }
     // city
-    if(!isAlpha(user.city)) {
-      errors.city = "Invalid city name, please provide the correct city name";
+    if(user.city.trim().length < 4) {
+      errors.city = "Invalid city name, please provide the complete city name.";
       valid = false;
     }
     // phone
@@ -128,13 +133,19 @@ class UserRegistrationForm extends Component {
     }
   }
 
-  handleCheckBox = (e, isInputChecked) => {
+  handlePublicCheckBox = (e, isInputChecked) => {
     let user = this.state.user;
     if(isInputChecked) {
       user.public = true;
     } else {
       user.public = false;
     }
+    this.setState({user});
+  }
+  // function(event: object, value: undefined) => void
+  handleRoleRadioButton = (e, value) => {
+    let user = this.state.user;
+    user.userRole = value;
     this.setState({user});
   }
 
@@ -148,105 +159,143 @@ class UserRegistrationForm extends Component {
         marginTop: 20,
         marginBottom: 16,
       },
+      radioButton: {
+        marginTop: 16,
+        // marginBottom: 16,
+        // display: 'inline-block',
+        // width: '350px'
+      },
     };
     return(
       <section id="registration-page">
         <div className="container">
-          <h2>User Registration Form</h2>
           <p>
             <strong>Important Note:</strong> if you are making an account for someone else, please provide
             the data of the original user.<br/>
-            Please make sure you provide the correct CNIC Number, it will be used for login and may be
-            used to send money to the user, so providing wrong/invalid cnic number may create problems.
+            Please make sure you provide the correct CNIC Number, it may be used to send money to the user,
+            so providing wrong/invalid cnic number may create problems.
           </p>
-          <p className="text-right">اگر آپ کسی اور کے لیے اکائونٹ بنا رہے ہیں تو براہِ کرم اسی بندے کی تفصیلات فراہم کیجیے۔</p>
+          <p className="urdu">اگر آپ کسی اور کے لیے اکائونٹ بنا رہے ہیں تو براہِ کرم اسی بندے کی تفصیلات فراہم کیجیے۔</p>
           <form onSubmit={this.handleUserRegistration} className="donor-form">
+            <div className="form-group row">
+              <div className="col-12 col-sm-6">
+                <TextField
+                  hintText="Chose your username for login"
+                  fullWidth={true}
+                  name="username"
+                  type="text"
+                  floatingLabelText="Username *"
+                  onChange={this.handleChange}
+                  value={user.username}
+                  errorText={errors.username}
+                  floatingLabelFixed={true}
+                />
+              </div>
+
+              <div className="col-12 col-sm-6">
+                <TextField
+                  hintText="Chose your password."
+                  fullWidth={true}
+                  name="password"
+                  type="password"
+                  floatingLabelText="Password *"
+                  onChange={this.handleChange}
+                  value={user.password}
+                  errorText={errors.password}
+                  floatingLabelFixed={true}
+                />
+              </div>
+            </div>
+
+
+            <div className="form-group row">
+              <div className="col-12 col-sm-6">
+                <TextField
+                  hintText="Full Name"
+                  fullWidth={true}
+                  name="name"
+                  type="text"
+                  floatingLabelText="Name *"
+                  onChange={this.handleChange}
+                  value={user.name}
+                  errorText={errors.name}
+                  floatingLabelFixed={true}
+                />
+              </div>
+              <div className="col-12 col-sm-6">
+                <TextField
+                  hintText="Email"
+                  fullWidth={true}
+                  name="email"
+                  type="text"
+                  floatingLabelText="Email"
+                  floatingLabelFixed={true}
+                  onChange={this.handleChange}
+                  value={user.email}
+                  errorText={errors.email}
+                />
+              </div>
+            </div>
+
+            <div className="form-group row">
+              <div className="col-12 col-sm-6">
+                <TextField
+                  hintText="Complete Address"
+                  fullWidth={true}
+                  name="address"
+                  type="text"
+                  floatingLabelText="Address *"
+                  floatingLabelFixed={true}
+                  onChange={this.handleChange}
+                  value={user.address}
+                  errorText={errors.address}
+                />
+              </div>
+              <div className="col-12 col-sm-6">
+                <TextField
+                  hintText="City"
+                  fullWidth={true}
+                  name="city"
+                  type="text"
+                  floatingLabelText="City *"
+                  floatingLabelFixed={true}
+                  onChange={this.handleChange}
+                  value={user.city}
+                  errorText={errors.city}
+                />
+              </div>
+            </div>
+
+            <div className="form-group row">
+              <div className="col-12 col-sm-6">
+                <TextField
+                  hintText="Phone Number"
+                  fullWidth={true}
+                  name="phone"
+                  type="text"
+                  floatingLabelText="Phone"
+                  floatingLabelFixed={true}
+                  onChange={this.handleChange}
+                  value={user.phone}
+                  errorText={errors.phone}
+                />
+              </div>
+              <div className="col-12 col-sm-6">
+                <TextField
+                  hintText="Valid CNIC Number"
+                  fullWidth={true}
+                  name="cnicNumber"
+                  id="cnicNumber"
+                  floatingLabelText="CNIC Card Number *"
+                  floatingLabelFixed={true}
+                  onChange={this.handleChange}
+                  value={user.cnicNumber}
+                  errorText={errors.cnicNumber}
+                />
+              </div>
+            </div>
+
             <div className="form-group">
-
-              <TextField
-                hintText="Email"
-                fullWidth={true}
-                name="email"
-                type="text"
-                floatingLabelText="Email"
-                floatingLabelFixed={true}
-                onChange={this.handleChange}
-                value={user.email}
-                errorText={errors.email}
-              />
-
-              <TextField
-                hintText="Please chose at tleast 8 characters long password to login to this website."
-                fullWidth={true}
-                name="password"
-                type="password"
-                floatingLabelText="Password *"
-                onChange={this.handleChange}
-                value={user.password}
-                errorText={errors.password}
-                floatingLabelFixed={true}
-              />
-
-              <TextField
-                hintText="Full Name"
-                fullWidth={true}
-                name="name"
-                type="text"
-                floatingLabelText="Name *"
-                onChange={this.handleChange}
-                value={user.name}
-                errorText={errors.name}
-                floatingLabelFixed={true}
-              />
-
-              <TextField
-                hintText="Complete Address"
-                fullWidth={true}
-                name="address"
-                type="text"
-                floatingLabelText="Address *"
-                floatingLabelFixed={true}
-                onChange={this.handleChange}
-                value={user.address}
-                errorText={errors.address}
-              />
-
-              <TextField
-                hintText="City"
-                fullWidth={true}
-                name="city"
-                type="text"
-                floatingLabelText="City *"
-                floatingLabelFixed={true}
-                onChange={this.handleChange}
-                value={user.city}
-                errorText={errors.city}
-              />
-
-              <TextField
-                hintText="Phone Number"
-                fullWidth={true}
-                name="phone"
-                type="text"
-                floatingLabelText="Phone"
-                floatingLabelFixed={true}
-                onChange={this.handleChange}
-                value={user.phone}
-                errorText={errors.phone}
-              />
-
-              <TextField
-                hintText="Valid CNIC Number"
-                fullWidth={true}
-                name="cnicNumber"
-                id="cnicNumber"
-                floatingLabelText="CNIC Card Number *"
-                floatingLabelFixed={true}
-                onChange={this.handleChange}
-                value={user.cnicNumber}
-                errorText={errors.cnicNumber}
-              />
-
               <TextField
                 hintText="Bank Name: Standard Chartered Bank;
                 Account Number: 01-xxxxxxxx-01;
@@ -264,7 +313,8 @@ class UserRegistrationForm extends Component {
                 rows={4}
                 rowsMax={4}
               />
-
+            </div>
+            <div className="form-group">
               <TextField
                 hintText="Additional Information"
                 fullWidth={true}
@@ -278,15 +328,17 @@ class UserRegistrationForm extends Component {
                 multiLine={true}
                 rowsMax={4}
               />
-
+            </div>
+            <div className="form-group">
               <Checkbox
                 checkedIcon={<Visibility />}
                 uncheckedIcon={<VisibilityOff />}
                 label={ user.public ? "Display my information publicly." : "Display my information only to the interested people." }
                 style={styles.checkbox}
-                onCheck={this.handleCheckBox}
+                onCheck={this.handlePublicCheckBox}
               />
-
+            </div>
+            <div className="form-group">
               <RaisedButton
                 label="Register"
                 secondary={true}
@@ -303,7 +355,6 @@ class UserRegistrationForm extends Component {
 }
 
 UserRegistrationForm.propTypes = {
-  // myProp: PropTypes.string.isRequired
   actions: PropTypes.object.isRequired
 }
 
@@ -316,7 +367,6 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(registrationActions, dispatch)
-    // actions: bindActionCreators(actions, dipatch)
   };
 }
 

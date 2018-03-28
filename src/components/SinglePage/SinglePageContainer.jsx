@@ -1,15 +1,21 @@
 import React, {Component} from 'react';
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
 import SinglePage from './SinglePage';
+
 import $ from 'jquery';
 
 class SinglePageContainer extends Component {
+  getCurrentListing = (listings, currentListingId) => {
+    return listings.filter((listing) => listing._id == currentListingId)[0];
+  }
+
   state = {
     selectValue: '',
     lat: 31.418746,
     lng: 73.079123,
+    listing: this.getCurrentListing(this.props.listings, this.props.currentListingId),
   }
 
   handleChange = (event, index, value) => this.setState({selectValue: value});
@@ -25,6 +31,7 @@ class SinglePageContainer extends Component {
     // this.initMap();
   }
   render() {
+  /*
     let selectOptions = {
       value: this.state.selectValue,
       options: ['Food', 'Medical', 'Clothes', 'Qarz-e-Hasan']
@@ -55,12 +62,10 @@ class SinglePageContainer extends Component {
         description: 'Some Description of the listing'
       }
     ]
-
-
+  */
     return (
       <SinglePage
-        onChange={this.handleChange} selectOptions={selectOptions} listings={listings}
-        lat={this.state.lat} lng={this.state.lng}
+        listing={this.state.listing}
       />
     );
   }
@@ -68,10 +73,14 @@ class SinglePageContainer extends Component {
 
 SinglePageContainer.propTypes = {
   // myProp: PropTypes.string.isRequired
+  match: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state, ownProps) {
-  return {state: state}
+  return {
+    listings: state.listings,
+    currentListingId: ownProps.match.params.id
+  }
 }
 
 function mapDispatchToProps(dispatch) {
