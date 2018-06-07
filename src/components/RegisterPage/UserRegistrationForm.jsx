@@ -169,13 +169,13 @@ class UserRegistrationForm extends Component {
     return(
       <section id="registration-page">
         <div className="container">
-          <p>
+          {/* <p>
             <strong>Important Note:</strong> if you are making an account for someone else, please provide
             the data of the original user.<br/>
             Please make sure you provide the correct CNIC Number, it may be used to send money to the user,
             so providing wrong/invalid cnic number may create problems.
           </p>
-          <p className="urdu">اگر آپ کسی اور کے لیے اکائونٹ بنا رہے ہیں تو براہِ کرم اسی بندے کی تفصیلات فراہم کیجیے۔</p>
+          <p className="urdu">اگر آپ کسی اور کے لیے اکائونٹ بنا رہے ہیں تو براہِ کرم اسی بندے کی تفصیلات فراہم کیجیے۔</p> */}
           <form onSubmit={this.handleUserRegistration} className="donor-form">
             <div className="form-group row">
               <div className="col-12 col-sm-6">

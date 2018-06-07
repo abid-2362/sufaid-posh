@@ -1,35 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-const PeopleListing = ({ listing }) => {
-  console.log('peopleListing', listing);
+import {API_URL, allowedTitleChars} from '../../constants/constants';
+const PeopleListing = ({ listing, donor, wannaHelp, handleCityFilter, handleCategoryFilter }) => {
   const img = listing.img[0];
-  const description = listing.description.substring(0, 105) + '...';
+  // const description = listing.description.substring(0, 105) + '...';
+  const description = (listing.title.length > allowedTitleChars) ? listing.title.substring(0, allowedTitleChars) + '...' : listing.title;
   return (
     <div className="single-profile-outer-container">
       <div className="img-container">
-        <img src={img} />
+        <img src={`${API_URL}image/${((!listing.public && donor) || listing.public) ? img : '430x275.png'}`} alt={listing.title} />
       </div>
       <p className="additional-info">
-        <span className="category">Food</span>
-        <span className="city">Faisalabad</span>
-        <span className="requirement">Rs. 1000</span>
+        <span
+          onClick={() => handleCategoryFilter(listing.category)}
+          className="category"
+        >
+          {listing.category}
+        </span>
+        <span
+          className="city"
+          onClick={() => handleCityFilter(listing.city)}
+        >
+          {listing.city}
+        </span>
+        <span className="requirement">Rs. {listing.estimatedCost}</span>
       </p>
       <p className="description-container">
         {description}
       </p>
-      <div className="button-container">
-        <Link to={`/single-page/${listing._id}`} className="btn btn-info">View details</Link>&nbsp;
-        <button className="btn btn-success btn-help">I want to help</button>
+      <div className="button-container text-right">
+        <Link to={`/single-page/${listing._id}`} className="btn btn-link">View details</Link>&nbsp;
+        {donor && <a className="btn btn-link text-success" href="javascipt:void(0);" onClick={() => wannaHelp(listing._id)}>I want to help</a>}
       </div>
     </div>
   );
 };
 
 PeopleListing.propTypes = {
-  // img: PropTypes.string.isRequired,
-  // description: PropTypes.string.isRequired
-  listing: PropTypes.object.isRequired
+  listing: PropTypes.object.isRequired,
+  donor: PropTypes.bool,
+  wannaHelp: PropTypes.func.isRequired,
+  handleCityFilter: PropTypes.func.isRequired,
+  handleCategoryFilter: PropTypes.func.isRequired
 }
 
 export default PeopleListing;

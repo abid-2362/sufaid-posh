@@ -11,7 +11,7 @@ const loginUserLogic = createLogic({
   cancelType: types.LOGIN_USER_CANCEL, // cancel on this type
   debounce: 250,
   latest: true,
-  process({ getState, action }, dispatch, done) {
+  process: function ({ getState, action }, dispatch, done) {
     // console.log(url+'login/donor');
     axios.post(url + 'login/user', {
       username: action.payload.username,

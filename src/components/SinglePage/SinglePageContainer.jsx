@@ -3,19 +3,22 @@ import PropTypes from "prop-types";
 import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
 import SinglePage from './SinglePage';
+import uf from '../../constants/UtilityFunctions';
 
 import $ from 'jquery';
 
 class SinglePageContainer extends Component {
-  getCurrentListing = (listings, currentListingId) => {
-    return listings.filter((listing) => listing._id == currentListingId)[0];
-  }
+  // getCurrentListing = (listings, currentListingId) => {
+  //   return listings.filter((listing) => listing._id == currentListingId)[0];
+  // }
+
+
 
   state = {
     selectValue: '',
     lat: 31.418746,
     lng: 73.079123,
-    listing: this.getCurrentListing(this.props.listings, this.props.currentListingId),
+    listing: uf.getListingById(this.props.listings, this.props.currentListingId),
   }
 
   handleChange = (event, index, value) => this.setState({selectValue: value});
@@ -63,9 +66,11 @@ class SinglePageContainer extends Component {
       }
     ]
   */
+    console.log(this.props);
     return (
       <SinglePage
         listing={this.state.listing}
+        donor={this.props.user.userType=="donor"}
       />
     );
   }
@@ -73,13 +78,15 @@ class SinglePageContainer extends Component {
 
 SinglePageContainer.propTypes = {
   // myProp: PropTypes.string.isRequired
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  user: PropTypes.object
 }
 
 function mapStateToProps(state, ownProps) {
   return {
     listings: state.listings,
-    currentListingId: ownProps.match.params.id
+    currentListingId: ownProps.match.params.id,
+    user: state.session.user
   }
 }
 

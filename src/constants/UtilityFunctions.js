@@ -2,6 +2,7 @@ import React from 'react'; // since we are using the jsx to return, so necessary
 import MenuItem from 'material-ui/MenuItem';
 // later, this will be fetched from database, but for now, lets hard-code them.
 const categories = ['Food', 'Medical', 'Clothes', 'Qarz-e-Hasan', 'Education'];
+// import objectAssign from 'object-assign';
 
 const UtilityFunctions = {
   getRequirementList: function(requirementsArray) {
@@ -16,6 +17,13 @@ const UtilityFunctions = {
       return <MenuItem key={index} value={category} primaryText={category} />
     });
     return categoryList;
+  },
+
+  getListingById: function(listings, id) {
+    return listings.filter((listing) => listing._id == id)[0];
+    // let listing = objectAssign([], [...listings]);
+    // console.log('listing',listing);
+    // return objectAssign([], [...listings]).filter((listing) => listing._id == id)[0];
   }
 };
 

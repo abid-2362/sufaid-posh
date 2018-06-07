@@ -44,9 +44,9 @@ class Header extends Component {
     this.props.actions.logout();
   }
 
-  componentDidMount() {
+  // componentDidMount() {
 
-  }
+  // }
 
   render() {
 
@@ -81,13 +81,27 @@ class Header extends Component {
                   <NavLink exact={true} className="nav-link" to="/">Home</NavLink>
                 </li>
 
+                {
+                  this.props.user.userType == "donor"
+                  &&
+                  <li className="nav-item">
+                    <NavLink exact={true} className="nav-link" to="/donor-listing">My Favored Listings</NavLink>
+                  </li>
+                }
+
                 {this.props.user.userType == "seeker" ?
                 (
                   <li className="nav-item">
                     <NavLink exact={true} className="nav-link" to="/create-listing">Create Listing</NavLink>
                   </li>
                 ) : null
-
+                }
+                {this.props.user.userType == "seeker" ?
+                (
+                  <li className="nav-item">
+                    <NavLink exact={true} className="nav-link" to="/my-listings">My Listings</NavLink>
+                  </li>
+                ) : null
                 }
 
                 {/* <li className="nav-item">

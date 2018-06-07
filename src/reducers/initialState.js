@@ -1,5 +1,7 @@
 export default {
   registrations: [],
   loginUser: {},
-  listings: []
+  listings: [],
+  myListings: [],
+  donorListings: [],
 }

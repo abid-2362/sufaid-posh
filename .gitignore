@@ -42,5 +42,7 @@ dist
 # extra files
 -- extra
 mockup
+#sass cache
+**.sass-cache
 
 package-lock.json

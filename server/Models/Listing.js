@@ -44,16 +44,20 @@ const ListingSchema = new Schema({
     required: true
   },
   estimatedCost: {
-    type: Number,
+    type: String,
     required: true
   },
   costRepeater: {
     type: String,
     required: true
   },
-  user: {
+  uploader: {
     type: Schema.Types.ObjectId,
     ref: 'User'
+  },
+  favorites: {
+    type: [String],
+    default: []
   },
   name: {
     type: String,
@@ -84,5 +88,5 @@ const ListingSchema = new Schema({
     default: false,
   }
 });
-
+ListingSchema.index({title: 'text'});
 module.exports = mongoose.model('Listing', ListingSchema);

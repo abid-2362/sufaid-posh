@@ -8,9 +8,11 @@ import NotFoundPage from './components/Common/NotFound';
 import SinglePage from './components/SinglePage/SinglePageContainer';
 import RegisterPage from './components/RegisterPage/RegisterPageContainer';
 import AbstractPage from './components/AbstractPage/AbstractContainer';
-import DonorRegistrationPage from './components/RegisterPage/DonorRegistrationForm';
-import UserRegistrationPage from './components/RegisterPage/UserRegistrationForm';
 import CreateListingPage from './components/CreateListingPage/CreateListingPageContainer';
+import MyListingsPage from './components/MyListingsPage/MyListingsPageContainer';
+import EditListingPage from './components/MyListingsPage/EditListingPage';
+import DonorListingsPage from  './components/MyListingsPage/DonorListingsPageContainer';
+
 import Footer from './components/Common/Footer';
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -26,9 +28,10 @@ class CustomRoutes extends React.Component {
           <Route exact={true} path="/abstract" component={AbstractPage} />
           <Route exact={true} path="/single-page/:id" component={SinglePage} />
           <Route exact={true} path="/register" component={RegisterPage} />
-          <Route exact={true} path="/donor-registration" component={DonorRegistrationPage} />
-          <Route exact={true} path="/user-registration" component={UserRegistrationPage} />
           <Route exact={true} path="/create-listing" component={CreateListingPage} />
+          <Route exact={true} path="/my-listings" component={MyListingsPage} />
+          <Route exact={true} path="/edit-listing/:id" component={EditListingPage} />
+          <Route exact={true} path="/donor-listing" component={DonorListingsPage} />
           <Route component={NotFoundPage} />
         </Switch>
         <Footer/>

@@ -15,12 +15,32 @@ body {
   background-color: #f3f3f3;
 }
 
+/* Let's get this party started */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(82, 218, 184, 0.575);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(82, 218, 184, 0.575);
+}
+
 /********************
    =header
 *********************/
 header {
   height: 500px;
-  background: url("../img/header-fruit.jpg");
+  background: url("../img/header-bg.jpg");
   background-size: cover;
   position: relative;
   color: #fff;
@@ -50,6 +70,9 @@ header .header-info h3 {
   font-size: 5vw;
   border: none;
 }
+header .header-info .list-inline {
+  font-size: 2vw;
+}
 header .header-info .list-inline-item:not(:last-child) {
   padding: 0;
   margin-right: 2px;
@@ -72,8 +95,17 @@ h2, h3, h4 {
   padding-bottom: 5px;
 }
 
+.urdu {
+  font-family: 'Jameel Noori Nastaleeq', sans-serif;
+  text-align: right;
+}
+
 section {
   padding: 70px 0;
+}
+
+.rotate {
+  animation: 3s rotate linear infinite;
 }
 
 /********************
@@ -98,8 +130,7 @@ section#volunteers .volunteer-description {
   margin-bottom: 20px;
 }
 .single-profile-outer-container p.description-container {
-  text-align: center;
-  padding: 20px 10px;
+  padding: 0 20px;
   color: #777;
   text-shadow: 0 1px 0 rgba(255, 0, 0, 0.5);
   letter-spacing: .05em;
@@ -122,6 +153,9 @@ section#volunteers .volunteer-description {
   text-align: center;
   padding-bottom: 30px;
 }
+.single-profile-outer-container .city {
+  cursor: pointer;
+}
 
 /********************
    =single-page
@@ -141,6 +175,7 @@ section#volunteers .volunteer-description {
 }
 .complete-info > p {
   line-height: 1.7em;
+  white-space: pre-wrap;
   color: #777;
   text-shadow: 0 1px 0 rgba(255, 0, 0, 0.5);
   letter-spacing: .05em;
@@ -155,6 +190,54 @@ section#volunteers .volunteer-description {
 
 #map {
   height: 400px;
+}
+
+#create-listing .uploaded-files-list {
+  list-style: none;
+  padding: 0;
+}
+#create-listing .uploaded-files-list li {
+  padding: 5px;
+}
+#create-listing .uploaded-files-list li i {
+  margin-right: 20px;
+}
+
+/********************
+   =footer
+*********************/
+#footer {
+  background-color: rgba(255, 255, 255, 0.5);
+  background: url("../img/header-bg.jpg") no-repeat;
+  background-size: cover;
+  position: relative;
+}
+#footer .container {
+  position: relative;
+  z-index: 100;
+}
+#footer:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+}
+
+@media (min-width: 1200px) {
+  header .header-info h3 {
+    font-size: 70px;
+  }
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

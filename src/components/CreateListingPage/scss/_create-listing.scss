@@ -1,0 +1,13 @@
+#create-listing {
+  .uploaded-files-list {
+    list-style: none;
+    // border: 1px solid;
+    padding: 0;
+    li {
+      padding: 5px;
+      i {
+        margin-right: 20px;
+      }
+    }
+  }
+}

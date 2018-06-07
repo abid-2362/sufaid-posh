@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const Volunteers = (props) => {
   return (
@@ -16,7 +17,8 @@ const Volunteers = (props) => {
           platform, it would be enough reward for our time on this platform.
               </p>
         <div>
-          <a href="javascript:void(0)" className="btn btn-success">Post a new story</a>
+          {/* <a href="javascript:void(0)" className="btn btn-success">Post a new story</a> */}
+          <Link to="/register" className="btn btn-success">Register to post new stories</Link>
         </div>
       </div>
     </section>

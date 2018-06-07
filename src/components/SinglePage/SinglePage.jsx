@@ -4,6 +4,8 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import GoogleMap from './GoogleMap';
 import $ from 'jquery';
+import uf from '../../constants/UtilityFunctions';
+import {API_URL} from '../../constants/constants';
 // import SelectField from 'material-ui/SelectField';
 // import MenuItem from 'material-ui/MenuItem';
 // import TextField from 'material-ui/TextField';
@@ -28,7 +30,7 @@ class SinglePage extends Component {
   };
 
   render() {
-    const { listing } = this.props;
+    const { listing, donor } = this.props;
     const locationActions = [
       <FlatButton
         label="Close"
@@ -37,30 +39,28 @@ class SinglePage extends Component {
         key={1}
       />
     ];
+    let requirements = uf.getRequirementList(listing.requirements);
+    console.log('user is donor ->', donor);
     return (
       <div>
           <section id="single-details">
             <div className="container">
               <div id="image-slider" className="carousel slide" data-ride="carousel">
                 <div className="carousel-inner">
-                  <div className="carousel-item peopleCarouselImg active">
-                    <img
-                      className="d-block w-100"
-                      src="http://via.placeholder.com/850x450"
-                      alt="First slide" />
-                  </div>
-                  <div className="carousel-item peopleCarouselImg">
-                    <img
-                      className="d-block w-100"
-                      src="http://via.placeholder.com/1050x550"
-                      alt="Second slide" />
-                  </div>
-                  <div className="carousel-item peopleCarouselImg">
-                    <img
-                      className="d-block w-100"
-                      src="http://via.placeholder.com/1500x650"
-                      alt="Third slide" />
-                  </div>
+                {
+                  listing.img.map((img, index) => {
+                    let classNames = (index == 0) ? "carousel-item peopleCarouselImg active" : "carousel-item peopleCarouselImg";
+                    return(
+                      <div className={classNames} key={index}>
+                        <img
+                          className="d-block w-100"
+                          src={`${API_URL}image/${((!listing.public && donor) || listing.public) ? img : "800x400.png"}`}
+                          alt={listing.title}
+                        />
+                      </div>
+                    );
+                  })
+                }
                 </div>
                 <a
                   className="carousel-control-prev"
@@ -90,7 +90,8 @@ class SinglePage extends Component {
                   <div className="col-12 col-sm-6">
                     <h4>Requirement</h4>
                     <ul>
-                      {listing.requirements.map((requirement, index) => <li key={index}>{requirement}</li>)}
+                      {/* {listing.requirements.map((requirement, index) => <li key={index}>{requirement}</li>)} */}
+                      {requirements}
                     </ul>
                   </div>
                   <div className="col-12 col-sm-6">
@@ -104,21 +105,28 @@ class SinglePage extends Component {
                   <div className="col-12 col-sm-6">
                     <h5>Name</h5>
                     <p>
-                      {listing.name}
+                      {((!listing.public && donor) || listing.public) ? listing.name: "-Login as donor to see details-"}
                     </p>
                   </div>
                   <div className="col-12 col-sm-6">
                     <h5>Address</h5>
                     <address>
-                      {listing.address}
+                      {((!listing.public && donor) || listing.public) ? listing.address : "-Login as donor to see details-"}
                     </address>
                   </div>
                   <div className="col-12 col-sm-6">
                     <h5>Contact Information</h5>
                     <p>
-                      {listing.phone}
+                      {((!listing.public && donor) || listing.public) ? listing.phone : "-Login as donor to see details-"}
                     </p>
                   </div>
+                  {/* <div className="col-12 col-sm-6">
+                    <button className="btn btn-success btn-help">See Details</button>
+                  </div> */}
+                  {/*
+                  // if implementation of location through google map is required then this will help
+                  // map display has been implemented, just need to get location co-ordinates from the
+                  // user and then it can be implemented, But for now, I have decided not to do that.
                   <div className="col-12 col-sm-6">
                     <h5>Location</h5>
                     <div className="open-map">
@@ -127,6 +135,7 @@ class SinglePage extends Component {
                       </a>
                     </div>
                   </div>
+                  */}
                 </div>
               </div>
 
@@ -149,13 +158,14 @@ class SinglePage extends Component {
       }
     }
 
-SinglePage.propTypes = {
-          // onChange: PropTypes.func.isRequired,
-          // selectOptions: PropTypes.object.isRequired,
-          // listings: PropTypes.array.isRequired
-          // lat: PropTypes.number,
-          // lng: PropTypes.number
-          listing: PropTypes.object.isRequired
-      }
+    SinglePage.propTypes = {
+      // onChange: PropTypes.func.isRequired,
+      // selectOptions: PropTypes.object.isRequired,
+      // listings: PropTypes.array.isRequired
+      // lat: PropTypes.number,
+      // lng: PropTypes.number
+      listing: PropTypes.object.isRequired,
+      donor: PropTypes.bool
+    }
 
-      export default SinglePage;
+    export default SinglePage;
