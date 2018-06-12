@@ -4,11 +4,28 @@
 *********************/
 
 // =carousel
+.image {
+  // height: 250px;
+  // max-height: 250px;
+}
+.image-slider {
+  // height: 250px;
+  // max-height: 250px;
+}
+.carousel-inner {
+  transition: all .3s linear;
+}
 .peopleCarouselImg {
+  border: 3px double #aaa;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all .3s linear;
+  // display: flex;
   img{
-    width: auto;
-    height: 450px;
-    max-height: 450px;
+    // margin: auto;
+    // width: auto;
+    // height: 250px;
+    // max-height: 250px;
   }
 }
 
@@ -20,7 +37,7 @@
     @include description(#777, #fff);
 
   }
-  > p {
+  .description {
     line-height: 1.7em;
     white-space: pre-wrap;
     @include description(#777, rgba(255, 0 ,0 ,0.5));
@@ -37,4 +54,10 @@
 // location-map
 #map {
   height: 400px;
+}
+
+@media (max-width: 767.98px) {
+  .image {
+    order: -1;
+  }
 }

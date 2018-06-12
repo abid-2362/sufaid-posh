@@ -67,7 +67,7 @@ header {
     content: "";
     position: absolute;
     height: $header-height;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.5);
     // @include gradient(rgba(0,0,0,0.5), rgba(0,0,0, 0.9) );
     width: 100%;
     z-index: 1;
@@ -87,6 +87,12 @@ header {
       margin-top: 100px;
       font-size: 5vw;
       border: none;
+      text-shadow:
+        1px 1px 10px #000,
+        3px 3px 5px #000,
+        -1px -1px 10px #000,
+        -3px -3px 5px #000;
+
     }
     .list-inline {
       font-size: 2vw;
@@ -121,6 +127,10 @@ h2,h3,h4 {
   //   border-bottom: $border-bottom;
   // }
 }
+h5.underline {
+  display: inline-block;
+  text-decoration: underline !important;
+}
 
 .urdu {
   font-family: 'Jameel Noori Nastaleeq', sans-serif;
@@ -151,7 +161,7 @@ section#volunteers {
 
 @import '../../components/SinglePage/scss/_SinglePage';
 @import '../../components/CreateListingPage/scss/_create-listing';
-
+@import '../../components/Admin/scss/admin';
 
 /********************
    =footer
@@ -174,6 +184,9 @@ section#volunteers {
     top:0;
     background-color: rgba(255,255,255, 0.8);
     z-index: 10;
+  }
+  p {
+    white-space: pre-wrap;
   }
 
 }

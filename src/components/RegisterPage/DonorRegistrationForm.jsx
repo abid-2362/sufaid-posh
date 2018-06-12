@@ -29,7 +29,6 @@ class DonorRegistrationForm extends Component {
   }
   // return true if form is valid, false otherwise, and set the errors in state as well.
   validateRegistrationForm = () => {
-    // console.log('validating Registration Form');
     let valid = true;
     let errors = this.resetErrors(); // reset errors before validating
     let user = this.state.user;
@@ -118,7 +117,6 @@ class DonorRegistrationForm extends Component {
   }
 
   handleChange = (e, val) => {
-    // console.log(e.target.name, val, val.length);
     let user = this.state.user;
     user[e.target.name] = val;
     this.setState({ user });

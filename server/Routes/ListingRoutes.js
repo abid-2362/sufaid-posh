@@ -139,7 +139,7 @@ router.route('/updateListing')
   );
 router.route('/deleteListing')
   .post(
-    ensureAuthentication.userAuthentication,
+    ensureAuthentication.userOrAdminAuthentication,
     function (req, res) {
       console;
       ListingController.deleteListing(req.body.id)

@@ -23,28 +23,18 @@ const createListingLogic = createLogic({
     if (state.session.user.userType != "seeker") {
       toastr.error("You don't have permission to submit listing, please register or login as a Seeker to submit your listing");
     } else {
-      console.log('Validation before creating listing', state);
-      console.log('Listing Payload', action.payload);
       allow(action);
     }
   },
 
   process({ getState, action }, dispatch, done) {
     let state = getState();
-    // action.payload.user = state.session.user.id;
-    // console.log('Processing to create listing', state);
-    // console.log('Listing Payload', action.payload);
-    // done();
     // action.payload is already an instance of FormData(), so just appended new user field
     let fd = action.payload;
     fd.append('user', state.session.user.id);
 
-    // axios.post(url + 'listings/createNewListing', {
-    //   listing: action.payload
-    // })
     axios.post(url + 'listings/createNewListing', fd)
       .then(resp => {
-        // console.log(resp);
         toastr.info(resp.data.message);
         dispatch(listingActions.loadAllListings());
       })
@@ -64,10 +54,8 @@ const loadListingLogic = createLogic({
   process: function ({ getState, action }, dispatch, done) {
     axios.post(url+'listings/getAllListings')
     .then(response => {
-      console.log(response);
       dispatch(listingActions.loadAllListingsSuccess(response.data));
     }).catch(error => {
-      console.log('error', error);
     }).then(() => done());
   }
 });
@@ -98,10 +86,13 @@ const deleteListingLogic = createLogic({
       if(response.data.status == "ok") {
         toastr.success(response.data.message);
       }
-      // load listings again
-      dispatch(listingActions.loadMyListings(getState().session.user));
+      // load listings again,
+      if(getState().session.user.userType == "seeker") {
+        dispatch(listingActions.loadMyListings(getState().session.user));
+      }else if(getState().session.user.userType == "admin") {
+        dispatch(listingActions.loadAllListings());
+      }
     }).catch(error => {
-      console.log('error', error);
     }).then(() => done());
   }
 });
@@ -116,10 +107,8 @@ const filterListingsLogic = createLogic({
       listingInfo: action.payload
     })
     .then(response => {
-      console.log(response);
       dispatch(listingActions.loadAllListingsSuccess(response.data));
     }).catch(error => {
-      console.log('error', error);
     }).then(() => done());
   }
 });
@@ -134,10 +123,8 @@ const searchListingsLogic = createLogic({
       searchFilter: action.payload
     })
     .then(response => {
-      console.log(response);
       dispatch(listingActions.loadAllListingsSuccess(response.data));
     }).catch(error => {
-      console.log('error', error);
     }).then(() => done());
   }
 });

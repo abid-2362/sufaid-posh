@@ -1,23 +1,16 @@
 import React from 'react';
-// import SelectField from 'material-ui/SelectField';
-// import MenuItem from 'material-ui/MenuItem';
-// import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 import MyListingTemplate from '../Common/MyListingTemplate';
-// import UtilityFunctions from '../../constants/UtilityFunctions';
-// dialog for delete option
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-
-
 
 const MyListingsPage = ({ listings, state, deleteListing, deleteMessage, handleCloseDeleteDialog, user }) => {
   // const categories = UtilityFunctions.getCategories();
 
   let myListings;
   if(listings.length < 1) {
-    myListings = <div>No listings available yet, please create new listings to see them here.</div>;
+    myListings = <div>{ user.userType=="donor" ? "No favored listings yet." : "No listings available yet, please create new listings to see them here." }</div>;
   } else {
     myListings = listings.map((listing, index) => {
       return (

@@ -6,8 +6,16 @@ import PropTypes from 'prop-types';
 import PeopleListing from '../Common/PeopleListing';
 import UtilityFunctions from '../../constants/UtilityFunctions';
 import Volunteers from '../Common/Volunteers';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
-const Homepage = ({handleSearchChange, selectOptions, listings, user, wannaHelp, handleCategoryChange, handleCityFilter, handleCategoryFilter, handleSearchFilter}) => {
+const Homepage = ({
+  handleSearchChange, selectOptions, listings, user, wannaHelp,
+  handleCategoryChange, handleCityFilter, handleCategoryFilter,
+  handleSearchFilter,
+  deleteMessage, handleCloseDeleteDialog, state, deleteListing
+}) => {
   let {value} = selectOptions;
   const categories = UtilityFunctions.getCategories();
   let peopleListings;
@@ -20,15 +28,31 @@ const Homepage = ({handleSearchChange, selectOptions, listings, user, wannaHelp,
           <PeopleListing
             listing={listing}
             donor={user.userType=="donor"}
+            admin={user.userType=="admin"}
             wannaHelp={wannaHelp}
             handleCityFilter={handleCityFilter}
             handleCategoryFilter={handleCategoryFilter}
+            handleCloseDeleteDialog={handleCloseDeleteDialog}
           />
         </div>
       );
     });
   }
-
+  const actions = [
+    <RaisedButton
+      key={1}
+      label="Delete"
+      primary={true}
+      onClick={() => {deleteListing(state.listingTobeDeleted.id)}}
+      style={{marginRight: 10}}
+    />,
+    <FlatButton
+      key={2}
+      label="Cancel"
+      primary={false}
+      onClick={handleCloseDeleteDialog}
+    />,
+  ];
   return(
     <div>
       <main>
@@ -74,9 +98,21 @@ const Homepage = ({handleSearchChange, selectOptions, listings, user, wannaHelp,
 
         {user.id ? "" : <Volunteers />}
       </main>
+      <Dialog
+        actions={actions}
+        modal={false}
+        open={state.deleteDialogOpen}
+        onRequestClose={handleCloseDeleteDialog}
+      >
+        {deleteMessage}<br/>
+        <b>{state.listingTobeDeleted.title}</b>
+      </Dialog>
     </div>
   );
 };
+Homepage.defaultProps = {
+  deleteMessage: 'Deleeing a listing is irreversible process, Are you sure you want to delete the following listing?',
+}
 
 Homepage.propTypes = {
   handleSearchChange: PropTypes.func.isRequired,
@@ -87,7 +123,11 @@ Homepage.propTypes = {
   handleCategoryChange: PropTypes.func,
   handleCityFilter: PropTypes.func,
   handleCategoryFilter: PropTypes.func,
-  handleSearchFilter: PropTypes.func
+  handleSearchFilter: PropTypes.func,
+  state: PropTypes.object,
+  handleCloseDeleteDialog: PropTypes.func.isRequired,
+  deleteListing: PropTypes.func.isRequired,
+  deleteMessage: PropTypes.string.isRequired
 }
 
 export default Homepage;

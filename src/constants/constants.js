@@ -1,5 +1,6 @@
 // settings for front end
-export const API_URL = "http://localhost:5000/";
+// export const API_URL = "http://localhost:5000/";
+export const API_URL = "";
 export const allowedTitleChars = 105;
 // DONOR USER ACTIONS
 export const REGISTER_DONOR_USER = "REGISTER_DONOR_USER";
@@ -57,6 +58,21 @@ export const FILTER_LISTINGS_SUCCESS = "FILTER_LISTINGS_SUCCESS";
 // Search Listings by Search Filter
 export const SEARCH_LISTINGS = "SEARCH_LISTINGS";
 export const SEARCH_LISTINGS_SUCCESS = "SEARCH_LISTINGS_SUCCESS";
+
+// ===============ADMIN ACTIONS==================
+// DASHBOARD INFO
+export const LOAD_DASHBOARD_INFO = "LOAD_DASHBOARD_INFO";
+export const LOAD_DASHBOARD_INFO_SUCCESS = "LOAD_DASHBOARD_INFO_SUCCESS";
+// USERS
+export const LOAD_ALL_USERS = "LOAD_ALL_USERS";
+export const LOAD_ALL_USERS_SUCCESS = "LOAD_ALL_USERS_SUCCESS";
+// Delete User
+export const DELETE_USER_BY_ADMIN = "DELETE_USER_BY_ADMIN";
+export const BLOCK_USER_BY_ADMIN = "BLOCK_USER_BY_ADMIN";
+export const UNBLOCK_USER_BY_ADMIN = "UNBLOCK_USER_BY_ADMIN";
+export const LOAD_SITE_SETTINGS = "LOAD_SITE_SETTINGS";
+export const LOAD_SITE_SETTINGS_SUCCESS = "LOAD_SITE_SETTINGS_SUCCESS";
+export const ADMIN_SAVE_SETTINGS = "ADMIN_SAVE_SETTINGS";
 
 export const LOGOUT = "LOGOUT";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";

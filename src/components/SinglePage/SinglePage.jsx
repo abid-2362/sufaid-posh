@@ -30,7 +30,7 @@ class SinglePage extends Component {
   };
 
   render() {
-    const { listing, donor } = this.props;
+    const { listing, donor, admin } = this.props;
     const locationActions = [
       <FlatButton
         label="Close"
@@ -40,53 +40,63 @@ class SinglePage extends Component {
       />
     ];
     let requirements = uf.getRequirementList(listing.requirements);
-    console.log('user is donor ->', donor);
     return (
       <div>
           <section id="single-details">
             <div className="container">
-              <div id="image-slider" className="carousel slide" data-ride="carousel">
-                <div className="carousel-inner">
-                {
-                  listing.img.map((img, index) => {
-                    let classNames = (index == 0) ? "carousel-item peopleCarouselImg active" : "carousel-item peopleCarouselImg";
-                    return(
-                      <div className={classNames} key={index}>
-                        <img
-                          className="d-block w-100"
-                          src={`${API_URL}image/${((!listing.public && donor) || listing.public) ? img : "800x400.png"}`}
-                          alt={listing.title}
-                        />
-                      </div>
-                    );
-                  })
-                }
-                </div>
-                <a
-                  className="carousel-control-prev"
-                  href="#image-slider"
-                  role="button"
-                  data-slide="prev">
-                  <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span className="sr-only">Previous</span>
-                </a>
-                <a
-                  className="carousel-control-next"
-                  href="#image-slider"
-                  role="button"
-                  data-slide="next">
-                  <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span className="sr-only">Next</span>
-                </a>
-              </div>
-
               <div className="complete-info">
-                <h2 className="mt-4">{listing.title}</h2>
-                <div className="post-date">Monday, 19th February, 2018</div>
-                <p>
-                  {listing.description}
-                </p>
-                <div className="info-summary row">
+                <div className="row">
+                  <div className="col-12">
+                    <h2 className="mt-4">{listing.title}</h2>
+                    <div className="post-date">Monday, 19th February, 2018</div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12 col-md-6">
+                    <p className="description">
+                      {listing.description}
+                    </p>
+                  </div>
+                  <div className="col-12 col-md-6 image">
+                    <div id="image-slider" className="carousel slide" data-ride="carousel">
+                      <div className="carousel-inner">
+                      {
+                        listing.img.map((img, index) => {
+                          let classNames = (index == 0) ? "carousel-item peopleCarouselImg active" : "carousel-item peopleCarouselImg";
+                          return(
+                            <div className={classNames} key={index}>
+                              <img
+                                // className="d-block w-100"
+                                className="img-fluid d-block w-100"
+                                src={`${API_URL}image/${((!listing.public && (donor || admin)) || listing.public) ? img : "800x400.png"}`}
+                                alt={listing.title}
+                              />
+                            </div>
+                          );
+                        })
+                      }
+                      </div>
+                      <a
+                        className="carousel-control-prev"
+                        href="#image-slider"
+                        role="button"
+                        data-slide="prev">
+                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Previous</span>
+                      </a>
+                      <a
+                        className="carousel-control-next"
+                        href="#image-slider"
+                        role="button"
+                        data-slide="next">
+                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Next</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="info-summary row mt-3">
                   <div className="col-12 col-sm-6">
                     <h4>Requirement</h4>
                     <ul>
@@ -105,19 +115,19 @@ class SinglePage extends Component {
                   <div className="col-12 col-sm-6">
                     <h5>Name</h5>
                     <p>
-                      {((!listing.public && donor) || listing.public) ? listing.name: "-Login as donor to see details-"}
+                      {((!listing.public && (donor || admin)) || listing.public) ? listing.name: "-Login as donor to see details-"}
                     </p>
                   </div>
                   <div className="col-12 col-sm-6">
                     <h5>Address</h5>
                     <address>
-                      {((!listing.public && donor) || listing.public) ? listing.address : "-Login as donor to see details-"}
+                      {((!listing.public && (donor || admin)) || listing.public) ? listing.address : "-Login as donor to see details-"}
                     </address>
                   </div>
                   <div className="col-12 col-sm-6">
                     <h5>Contact Information</h5>
                     <p>
-                      {((!listing.public && donor) || listing.public) ? listing.phone : "-Login as donor to see details-"}
+                      {((!listing.public && (donor || admin)) || listing.public) ? listing.phone : "-Login as donor to see details-"}
                     </p>
                   </div>
                   {/* <div className="col-12 col-sm-6">
@@ -165,7 +175,8 @@ class SinglePage extends Component {
       // lat: PropTypes.number,
       // lng: PropTypes.number
       listing: PropTypes.object.isRequired,
-      donor: PropTypes.bool
+      donor: PropTypes.bool,
+      admin: PropTypes.bool,
     }
 
     export default SinglePage;

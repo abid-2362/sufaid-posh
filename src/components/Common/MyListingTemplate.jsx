@@ -6,8 +6,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import userIcon from '../../assets/img/user.png';
 import {API_URL} from '../../constants/constants';
 
-const MyListingTemplate = ({ listing, handleCloseDeleteDialog, donor }) => {
-  console.log('donor->',donor);
+const MyListingTemplate = ({ listing, handleCloseDeleteDialog, donor, admin }) => {
   return (
     <Card style={{marginBottom: 20}}>
       <CardHeader
@@ -28,44 +27,19 @@ const MyListingTemplate = ({ listing, handleCloseDeleteDialog, donor }) => {
         {listing.description}
       </CardText>
       <CardActions>
-        {!donor && <Link to={`/edit-listing/${listing._id}`} className="btn btn-default btn-sm"><i className="fa fa-edit"></i> Edit Listing</Link>}
-        {donor && <Link to={`/single-page/${listing._id}`} className="btn btn-default btn-sm"><i className="fa fa-eye"></i> View Details</Link>}
+        {!donor && !admin && <Link to={`/edit-listing/${listing._id}`} className="btn btn-default btn-sm"><i className="fa fa-edit"></i> Edit Listing</Link>}
+        <Link to={`/single-page/${listing._id}`} className="btn btn-default btn-sm"><i className="fa fa-eye"></i> View Details</Link>
         <a href="javascript:void(0)" onClick={() => {handleCloseDeleteDialog(listing._id, listing.title)}} className="btn btn-default btn-sm text-danger"><i className="fa fa-trash"></i> { donor ? "Delete from my favorites" : "Delete Listing" }</a>
       </CardActions>
     </Card>
   );
 }
 
-/*
-const PeopleListing = ({ listing }) => {
-  console.log('peopleListing', listing);
-  const img = listing.img[0];
-  const description = listing.description.substring(0, 105) + '...';
-  return (
-    <div className="single-profile-outer-container">
-      <div className="img-container">
-        <img src={img} />
-      </div>
-      <p className="additional-info">
-        <span className="category">{listing.category}</span>
-        <span className="city">{listing.city}</span>
-        <span className="requirement">Rs. {listing.estimatedCost}</span>
-      </p>
-      <p className="description-container">
-        {description}
-      </p>
-      <div className="button-container">
-        <Link to={`/single-page/${listing._id}`} className="btn btn-info">View details</Link>&nbsp;
-        <button className="btn btn-success btn-help">I want to help</button>
-      </div>
-    </div>
-  );
-};
-*/
 MyListingTemplate.propTypes = {
   listing: PropTypes.object.isRequired,
   handleCloseDeleteDialog: PropTypes.func.isRequired,
-  donor: PropTypes.bool
+  donor: PropTypes.bool,
+  admin: PropTypes.bool
 }
 
 export default MyListingTemplate;

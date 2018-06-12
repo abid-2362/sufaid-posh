@@ -8,7 +8,6 @@ const isAlphanumeric = require('validator/lib/isAlphanumeric');
 const isEmpty = require('validator/lib/isEmpty');
 const isNumeric = require('validator/lib/isNumeric');
 const isEmail = require('validator/lib/isEmail');
-const isAlpha = require('validator/lib/isAlpha');
 
 // function to validate the user registration on server side.
 function _validateUser(user) {
@@ -95,78 +94,6 @@ function _validateUser(user) {
   }
 }
 
-// function to validate the donor registration on server side.
-function _validateDonor(user) {
-  // console.log('validating Registration Form');
-  let valid = true;
-  let errors = {};
-
-  if(user.username.length < 3 || user.username.length > 20) {
-    errors.username = "Username must be between 3 to 20 characters long";
-    valid = false;
-  }
-  if(!isAlphanumeric(user.username)) {
-    errors.username = "Username must be alphanumeric value";
-    valid = false;
-  }
-
-  // email
-  if (!isEmail(user.email)) {
-    errors.email = "Please provide a valid email address."
-    valid = false;
-  }
-  // password
-  if (user.password.length < 8) {
-    errors.password = "Password must be atleast 8 characters long";
-    valid = false;
-  }
-  // name
-  if (user.name.length < 3) {
-    errors.name = 'Name Must be atleast 3 characters long';
-    valid = false;
-  }
-  // address
-  if (isEmpty(user.address)) {
-    errors.address = "Address is required, please provide a valid address";
-    valid = false;
-  }
-  if (user.address.length < 5) {
-    errors.address = "Address is too short, please provide a little more clear address";
-    valid = false;
-  }
-  // city
-  if (!isAlpha(user.city)) {
-    errors.city = "Invalid city name, please provide the correct city name";
-    valid = false;
-  }
-  // phone
-  if (!isNumeric(user.phone)) {
-    errors.phone = "Only numbers are allowed in phone"
-    valid = false;
-  }
-  if (user.phone.length < 10 || user.phone.length > 15) {
-    errors.phone = "Phone number must be between 10 to 15 numbers, please provide a valid phone number";
-    valid = false;
-  }
-
-  // cnic Number is optional but if provided then validate it.
-  if (!isEmpty(user.cnicNumber) && !isNumeric(user.cnicNumber)) {
-    errors.cnicNumber = "Please provide a valid id card number or leave this field blank if you dont want to provide your cnic number.";
-    valid = false;
-  }
-
-  if (!isEmpty(user.cnicNumber) && user.cnicNumber.length != 13) {
-    errors.cnicNumber = "CNIC Number must be 13 digits."
-  }
-
-  this.setState({ errors });
-  if (valid) {
-    this.setState({ disableRegisterButton: false });
-  } else {
-    this.setState({ disableRegisterButton: true });
-  }
-  return valid;
-}
 
 const RegistrationController = {
 
@@ -188,7 +115,6 @@ const RegistrationController = {
           if (donor.username && donor.password && donor.name) {
             donor.save(function (error, donor) {
               if (error) {
-                console.log(error);
                 let message;
                 if (error.code == 11000) {
                   message = "This username is already registered, Please login.";

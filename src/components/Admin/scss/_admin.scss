@@ -1,0 +1,18 @@
+#admin-dashboard {
+  a:hover {
+    text-decoration: none;
+  }
+  .paper-element {
+    display: inline-flex !important;
+    .paper-content {
+      margin: auto;
+      .number {
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        font-size: 1.5rem;
+      }
+      .text {
+
+      }
+    }
+  }
+}

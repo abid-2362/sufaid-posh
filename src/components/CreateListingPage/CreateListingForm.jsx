@@ -67,6 +67,7 @@ class CreateListingForm extends Component {
     };
     this.defTags;
     this.form;
+    this.$this = this;
     // [{label:"Poland"},{label:"USA"}]
   }
 
@@ -110,7 +111,6 @@ class CreateListingForm extends Component {
   */
   handleCheckBox = (e, isInputChecked) => {
     let listing = this.state.listing;
-    // console.log('handleCheckbox triggered',isInputChecked);
     if(isInputChecked) {
       listing.public = true;
     } else {
@@ -261,10 +261,27 @@ class CreateListingForm extends Component {
     } else if( !listing._id && filesListArray.length > 0 && filesListArray.length <= 3 ) {
       for(let x = 0; x < filesListArray.length; x++) {
         if(! /image\/.*/.test(filesListArray[x].type)) {
-            errors.img = "Only images are allowed";
-            valid = false;
-            break;
-          }
+          errors.img = "Only images are allowed";
+          valid = false;
+          break;
+        }
+        // --------------------------
+        const _URL = window.URL || window.webkitURL;
+        let image, file;
+        const $this = this;
+        if ((file = filesListArray[x])) {
+            image = new Image();
+            image.onload = function() {
+              if(this.width != 430 || this.height != 275){
+                errors.img = "Invalid dimensions, please upload 430 x 275 pixels image";
+                valid = false;
+                $this.setState({errors});
+              }
+              // alert("The image width is " +this.width + " and image height is " + this.height);
+            };
+            image.src = _URL.createObjectURL(file);
+        }
+        // --------------------------
       }
     }
     this.setState({errors});
@@ -279,7 +296,6 @@ class CreateListingForm extends Component {
 
   componentWillMount() {
     const {listing} = this.state;
-    // console.log('listing->',listing);
     this.defTags = listing.requirements.map(requirement => ({label: requirement}));
   }
 

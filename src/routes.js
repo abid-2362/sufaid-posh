@@ -12,6 +12,7 @@ import CreateListingPage from './components/CreateListingPage/CreateListingPageC
 import MyListingsPage from './components/MyListingsPage/MyListingsPageContainer';
 import EditListingPage from './components/MyListingsPage/EditListingPage';
 import DonorListingsPage from  './components/MyListingsPage/DonorListingsPageContainer';
+import AdminPageContainer from  './components/Admin/AdminPageContainer';
 
 import Footer from './components/Common/Footer';
 // This is a class-based component because the current
@@ -32,6 +33,7 @@ class CustomRoutes extends React.Component {
           <Route exact={true} path="/my-listings" component={MyListingsPage} />
           <Route exact={true} path="/edit-listing/:id" component={EditListingPage} />
           <Route exact={true} path="/donor-listing" component={DonorListingsPage} />
+          <Route exact={true} path="/admin/:page" component={AdminPageContainer} />
           <Route component={NotFoundPage} />
         </Switch>
         <Footer/>

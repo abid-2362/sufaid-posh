@@ -15,14 +15,12 @@ class Header extends Component {
   state = {
     registerDialogOpen: false,
     loginDialogOpen: false,
-    userId: '',
     authenticated: this.props.authenticated,
   };
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.authenticated != this.state.authenticated) {
-      let userId = nextProps.user.id;
-      this.setState({authenticated: nextProps.authenticated, userId});
+      this.setState({authenticated: nextProps.authenticated});
       this.handleLoginClose();
       this.props.history.push('/');
     }
@@ -43,10 +41,6 @@ class Header extends Component {
   handleLogout = () => {
     this.props.actions.logout();
   }
-
-  // componentDidMount() {
-
-  // }
 
   render() {
 
@@ -80,7 +74,13 @@ class Header extends Component {
                 <li className="nav-item">
                   <NavLink exact={true} className="nav-link" to="/">Home</NavLink>
                 </li>
-
+                {
+                  this.props.user.userType == "admin"
+                  &&
+                  <li className="nav-item">
+                    <NavLink exact={true} className="nav-link" to="/admin/dashboard">Dashboard</NavLink>
+                  </li>
+                }
                 {
                   this.props.user.userType == "donor"
                   &&

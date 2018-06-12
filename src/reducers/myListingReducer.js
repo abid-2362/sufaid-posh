@@ -11,10 +11,6 @@ export default function myLitsingsReducer(state = initialState.myListings, actio
         action.payload
       );
 
-    // case types.UPDATE_LISTING_SUCCESS:
-    //   // console.log('updateListingReducer->',state);
-    //   return state;
-
     default:
       return state;
   }

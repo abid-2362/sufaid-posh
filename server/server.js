@@ -49,6 +49,10 @@ app.use('/registration', registrationRoutes);
 const listingRoutes = require('./Routes/ListingRoutes');
 app.use('/listings', listingRoutes);
 
+// Admin Routes
+const adminRoutes = require('./Routes/AdminRoutes');
+app.use('/admin', adminRoutes);
+
 app.listen(config.port, function () {
   console.log('server is running on localhost:' + config.port);
 })

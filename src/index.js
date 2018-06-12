@@ -6,6 +6,7 @@ import { AppContainer } from 'react-hot-loader';
 import configureStore, { history } from './store/configureStore';
 import { sessionService } from 'redux-react-session';
 import { loadAllListings } from './actions/ListingActions';
+import { loadSettings } from './actions/AdminActions';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 // import App from './components/App';
@@ -23,6 +24,7 @@ import './plugins/nicescroll/js/jquery.nicescroll.min.js';
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 const store = window.store = configureStore();
 store.dispatch(loadAllListings());
+store.dispatch(loadSettings());
 sessionService.initSessionService(store, {
   refreshOnCheckAuth: true, redirectPath: '/', driver: 'LOCALSTORAGE'
 });

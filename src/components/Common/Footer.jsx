@@ -1,56 +1,43 @@
 import React, {Component} from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import {NavLink, Link} from 'react-router-dom';
-import RegisterPage from "../RegisterPage/RegisterPageContainer";
-import LoginPage from '../LoginPage/LoginPageContainer';
-import $ from 'jquery';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 class Footer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      settings: {},
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({settings: nextProps.settings});
+  }
 
   render() {
-    const registerActions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleRegisterClose}
-        key={1}
-      />
-    ];
-    const loginActions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleLoginClose}
-        key={1}
-      />
-    ];
+    let { settings } = this.state;
     return (
       <section id="footer">
         <div className="container">
           <div className="row">
             <div className="col-12 col-md-4">
-              <h4>Org Name</h4>
+              <h4>{settings.orgName ? settings.orgName : ''}</h4>
               <p>
-                A project by the people for the people.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur architecto ea quidem perspiciatis dolores magni veniam corrupti fugiat. Provident, ut.
+                {settings.orgDescription ? settings.orgDescription : ''}
               </p>
             </div>
             <div className="col-12 col-md-4">
-              <h4>Contact Info</h4>
+              <h4>{settings.contactHeading ? settings.contactHeading : ''}</h4>
               <address>
-                123 free webtown
-                Faisalabad
-                Pakistan
+                {settings.contactAddress ? settings.contactAddress : ''}
               </address>
-              <p>Email: learning@something.com</p>
-              <p>Phone: +92-123-456 7890</p>
+              <p>Email: {settings.contactEmail ? settings.contactEmail : ''}</p>
+              <p>Phone: {settings.contactPhone ? settings.contactPhone : ''}</p>
             </div>
             <div className="col-12 col-md-4">
-              <h4>More Information</h4>
+              <h4>{settings.thirdColumnHeading ? settings.thirdColumnHeading : ''}</h4>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, officia. Accusantium numquam porro quidem! Dolorem exercitationem voluptates commodi consequatur quaerat cumque magnam repudiandae reiciendis perspiciatis ipsum ut voluptatum, quibusdam repellendus?
+                {settings.thirdColumnText ? settings.thirdColumnText : ''}
               </p>
             </div>
           </div>
@@ -59,5 +46,14 @@ class Footer extends Component {
     );
   }
 }
+Footer.propTypes = {
+  settings: PropTypes.object
+};
 
-export default Footer;
+function mapStateToProps(state) {
+  return {
+    settings: state.admin.siteSettings  //containing all the information related to the admin
+  }
+}
+
+export default connect(mapStateToProps)(Footer);

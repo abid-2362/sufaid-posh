@@ -12,6 +12,9 @@ const ListingController = {
   createNewListing: function (listing, imgNames) {
     return new Promise(function (resolve, reject) {
       // promise api should be available. This will work properly only if promise api is available.
+      if(imgNames.length < 1) {
+        imgNames = ['430x275.png'];
+      }
       let newListing = new Listing();
       newListing.category = listing.category;
       newListing.title = listing.title;

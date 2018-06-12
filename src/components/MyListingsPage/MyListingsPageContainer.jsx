@@ -34,7 +34,6 @@ class MyListingsPageContainer extends Component {
     this.setState({deleteDialogOpen: !this.state.deleteDialogOpen, listingTobeDeleted: listing});
   }
   deleteListing = (id) => {
-    // console.log('deleting the following listing', id);
     this.handleCloseDeleteDialog(null, null);
     this.props.actions.deleteListing(id);
   }

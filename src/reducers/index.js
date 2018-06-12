@@ -6,6 +6,7 @@ import { routerReducer } from 'react-router-redux';
 import listingReducer from './listingReducer';
 import myListingReducer from './myListingReducer';
 import donorListingReducer from './donorListingReducer';
+import adminReducer from './adminReducer';
 import { sessionReducer } from 'redux-react-session';
 
 const rootReducer = combineReducers({
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   session: sessionReducer,
   listings: listingReducer,
   myListings: myListingReducer,
-  donorListings: donorListingReducer
+  donorListings: donorListingReducer,
+  admin: adminReducer,
 });
 
 export default rootReducer;

@@ -34,43 +34,11 @@ class SinglePageContainer extends Component {
     // this.initMap();
   }
   render() {
-  /*
-    let selectOptions = {
-      value: this.state.selectValue,
-      options: ['Food', 'Medical', 'Clothes', 'Qarz-e-Hasan']
-    };
-    const listings = [
-      {
-        img: 'http://via.placeholder.com/430x275',
-        description: 'Some Description of the listing'
-      },
-      {
-        img: 'http://via.placeholder.com/430x275',
-        description: 'Some Description of the listing'
-      },
-      {
-        img: 'http://via.placeholder.com/430x275',
-        description: 'Some Description of the listing'
-      },
-      {
-        img: 'http://via.placeholder.com/430x275',
-        description: 'Some Description of the listing'
-      },
-      {
-        img: 'http://via.placeholder.com/430x275',
-        description: 'Some Description of the listing'
-      },
-      {
-        img: 'http://via.placeholder.com/430x275',
-        description: 'Some Description of the listing'
-      }
-    ]
-  */
-    console.log(this.props);
     return (
       <SinglePage
         listing={this.state.listing}
         donor={this.props.user.userType=="donor"}
+        admin={this.props.user.userType=="admin"}
       />
     );
   }

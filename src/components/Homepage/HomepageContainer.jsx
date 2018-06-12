@@ -16,6 +16,8 @@ class HomepageContainer extends Component {
     selectValue: '',
     listings: this.props.listings,
     searchFilter: '',
+    deleteDialogOpen: false,
+    listingTobeDeleted: { id: '', title: ''}
   }
 
   // handleChange = (event, index, value) => this.setState({ selectValue: value });
@@ -38,13 +40,20 @@ class HomepageContainer extends Component {
     */
     this.setState({ listings: nextProps.listings });
   }
-
-  componentWillUnmount() {
-    // cleanup
+  // --to provide delete functionality in admin view of the home page
+  handleCloseDeleteDialog = (id, title) => {
+    let listing = this.state.listingTobeDeleted;
+    listing['id'] = id;
+    listing['title'] = title;
+    this.setState({deleteDialogOpen: !this.state.deleteDialogOpen, listingTobeDeleted: listing});
   }
+  deleteListing = (id) => {
+    this.handleCloseDeleteDialog(null, null);
+    this.props.actions.deleteListing(id);
+  }
+  // --/to provide delete functionality in admin view of the home page
+
   wannaHelp = (listingId) => {
-    // let userId = this.props.user.id;
-    // console.log('wanna help', userId, listingId);
     this.props.actions.wannaHelp(listingId, this.props.user.id);
   }
   // category change filter
@@ -60,7 +69,7 @@ class HomepageContainer extends Component {
     this.props.actions.filterListings('category', category);
   }
   // search filter
-  //   function(event: object, newValue: string) => void
+  // function(event: object, newValue: string) => void
   // event: Change event targeting the text field.
   // newValue: The new value of the text field.
   handleSearchChange = (event) => {
@@ -86,6 +95,9 @@ class HomepageContainer extends Component {
         handleSearchFilter={this.handleSearchFilter}
         handleCityFilter={this.handleCityFilter}
         handleCategoryFilter={this.handleCategoryFilter}
+        state={this.state}
+        deleteListing={this.deleteListing}
+        handleCloseDeleteDialog={this.handleCloseDeleteDialog}
       />
     );
   }

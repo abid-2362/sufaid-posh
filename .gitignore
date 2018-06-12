@@ -45,4 +45,6 @@ mockup
 #sass cache
 **.sass-cache
 
+server/uploads/listings/images
+
 package-lock.json

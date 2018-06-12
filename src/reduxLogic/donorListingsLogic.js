@@ -28,7 +28,6 @@ const wannaHelpListingLogic = createLogic({
       // load listings again
       // dispatch(listingActions.loadDonorListings(getState().session.user));
     }).catch(error => {
-      console.log('error', error);
       toastr.error(error);
     }).then(() => done());
   }
@@ -53,7 +52,6 @@ const loadDonorListingLogic = createLogic({
       .then(response => {
         dispatch(donorListingsLogic.loadDonorListingsSuccess(response.data));
       }).catch(error => {
-        console.log('error', error);
       }).then(() => done());
   }
 });

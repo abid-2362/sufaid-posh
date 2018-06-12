@@ -12,7 +12,6 @@ const loginUserLogic = createLogic({
   debounce: 250,
   latest: true,
   process: function ({ getState, action }, dispatch, done) {
-    // console.log(url+'login/donor');
     axios.post(url + 'login/user', {
       username: action.payload.username,
       password: action.payload.password

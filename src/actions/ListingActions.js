@@ -42,8 +42,6 @@ export function loadMyListingsSuccess(listings) {
 }
 
 export function updateListing(listing) {
-  // console.log('update listing action triggered->', listing);
-  // debugger;
   return {
     type: types.UPDATE_LISTING,
     payload: listing

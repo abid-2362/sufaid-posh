@@ -13,17 +13,7 @@ class RegisterPageContainer extends Component {
     user: this.resetUser(),
     errors: this.resetUser()
   }
-/*
-  handleChange = (e) => {
-    let user = this.state.user;
-    user[e.target.name] = e.target.value;
-    this.setState({user});
-  }
 
-  handleSubmit = (e) => {
-    console.log('form submitted');
-  }
-*/
   handleRoleRadioButton = (e, value) => {
     let user = this.state.user;
     user.userRole = value;

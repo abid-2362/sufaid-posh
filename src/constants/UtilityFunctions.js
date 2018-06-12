@@ -21,9 +21,6 @@ const UtilityFunctions = {
 
   getListingById: function(listings, id) {
     return listings.filter((listing) => listing._id == id)[0];
-    // let listing = objectAssign([], [...listings]);
-    // console.log('listing',listing);
-    // return objectAssign([], [...listings]).filter((listing) => listing._id == id)[0];
   }
 };
 

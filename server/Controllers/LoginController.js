@@ -1,7 +1,7 @@
 // const bcrypt = require('bcrypt');
 // const Donor = require('../Models/Donor');
 // const User = require('../Models/User');
-const passport = require('passport');
+// const passport = require('passport');
 
 const LoginController = {
 /*

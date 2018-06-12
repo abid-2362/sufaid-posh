@@ -4,4 +4,5 @@ export default {
   listings: [],
   myListings: [],
   donorListings: [],
+  admin: {}
 }
