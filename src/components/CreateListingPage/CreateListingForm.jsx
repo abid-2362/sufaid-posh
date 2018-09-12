@@ -335,7 +335,7 @@ class CreateListingForm extends Component {
           <p className="description">
             Please provide as much as possible description so that interested donors can get the
             complete picture of the need and can decide to help.
-            </p>
+          </p>
           <form ref={(form) => this.form = form }>
             <div className="form-group row">
               <div className="col-12 col-sm-4">

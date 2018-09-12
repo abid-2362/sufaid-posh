@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"sufaidPosh.users"},{"v":2,"unique":true,"key":{"username":1},"name":"username_1","ns":"sufaidPosh.users","background":true}],"uuid":"abb405bac5ab418caf55c13e2cfcad70"}

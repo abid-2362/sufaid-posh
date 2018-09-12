@@ -4,7 +4,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const mongoose = require('mongoose');
-
 mongoose.connect('mongodb://localhost/sufaidPosh');
 const app = express();
 const corsOptions = {
@@ -13,7 +12,11 @@ const corsOptions = {
   credentials: true
 };
 app.use(cors(corsOptions));
+// For VsCode Debugger Server
 app.use(express.static('./dist'));
+
+// For external server
+app.use(express.static('../dist'));
 
 // body parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -54,5 +57,5 @@ const adminRoutes = require('./Routes/AdminRoutes');
 app.use('/admin', adminRoutes);
 
 app.listen(config.port, function () {
-  console.log('server is running on localhost:' + config.port);
+  console.log('server is running on localhost:' + config.port); //eslint-disable-line
 })

@@ -21,14 +21,14 @@ router.route('/createNewListing')
     function (req, res) {
       const formidable = require('formidable');
       let form = new formidable.IncomingForm();
-      form.uploadDir = path.resolve(__dirname)+"/../uploads/listings/images";
+      form.uploadDir = path.resolve(__dirname) + "/../uploads/listings/images";
       form.keepExtensions = true;
       form.maxFieldsSize = 10 * 1024 * 1024; // 10MB
       form.maxFileSize = 10 * 1024 * 1024; // 10MB
       form.multiples = true;
       form.type = 'multipart';
-      form.parse(req, function(err, fields, files) {
-        if(err) {
+      form.parse(req, function (err, fields, files) {
+        if (err) {
           res.json({
             status: "failed",
             message: "Images can't be uploaded",
@@ -38,7 +38,7 @@ router.route('/createNewListing')
           let imgNames = [];
           let maxImagesAllowed = 3;
           for (let x = 0; x < maxImagesAllowed; x++) {
-            if(files[`image${x}`]){
+            if (files[`image${x}`]) {
               let nameArr = files[`image${x}`].path.split('\\');
               let fName = nameArr[nameArr.length - 1];
               imgNames.push(fName);
@@ -51,7 +51,7 @@ router.route('/createNewListing')
             }).catch(function (response) {
               res.send(response.message);
             }
-          );
+            );
         }
       });
     }
@@ -102,14 +102,14 @@ router.route('/updateListing')
     function (req, res) {
       const formidable = require('formidable');
       let form = new formidable.IncomingForm();
-      form.uploadDir = path.resolve(__dirname)+"/../uploads/listings/images";
+      form.uploadDir = path.resolve(__dirname) + "/../uploads/listings/images";
       form.keepExtensions = true;
       form.maxFieldsSize = 10 * 1024 * 1024; // 10MB
       form.maxFileSize = 10 * 1024 * 1024; // 10MB
       form.multiples = true;
       form.type = 'multipart';
-      form.parse(req, function(err, fields, files) {
-        if(err) {
+      form.parse(req, function (err, fields, files) {
+        if (err) {
           res.json({
             status: "failed",
             message: "Images can't be uploaded",
@@ -117,10 +117,10 @@ router.route('/updateListing')
           });
         } else {
           let imgNames = [];
-          if(files) {
+          if (files) {
             let maxImagesAllowed = 3;
             for (let x = 0; x < maxImagesAllowed; x++) {
-              if(files[`image${x}`]){
+              if (files[`image${x}`]) {
                 let nameArr = files[`image${x}`].path.split('\\');
                 let fName = nameArr[nameArr.length - 1];
                 imgNames.push(fName);
@@ -143,11 +143,11 @@ router.route('/deleteListing')
     function (req, res) {
       console;
       ListingController.deleteListing(req.body.id)
-      .then(response => {
-        res.json(response);
-      }).catch(error => {
-        res.send(error);
-      });
+        .then(response => {
+          res.json(response);
+        }).catch(error => {
+          res.send(error);
+        });
     }
   );
 router.route('/deleteDonorListing')
@@ -156,11 +156,11 @@ router.route('/deleteDonorListing')
     function (req, res) {
       console;
       ListingController.deleteDonorListing(req.body.listingInfo)
-      .then(response => {
-        res.json(response);
-      }).catch(error => {
-        res.send(error);
-      });
+        .then(response => {
+          res.json(response);
+        }).catch(error => {
+          res.send(error);
+        });
     }
   );
 router.route('/wannaHelp')
@@ -168,11 +168,11 @@ router.route('/wannaHelp')
     ensureAuthentication.donorAuthentication,
     function (req, res) {
       ListingController.wannaHelp(req.body.listingInfo)
-      .then(response => {
-        res.json(response);
-      }).catch(error => {
-        res.send(error);
-      });
+        .then(response => {
+          res.json(response);
+        }).catch(error => {
+          res.send(error);
+        });
     }
   );
 router.route('/filterListings')
