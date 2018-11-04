@@ -53,7 +53,7 @@ const ListingSchema = new Schema({
   },
   uploader: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'SP_User'
   },
   favorites: {
     type: [String],

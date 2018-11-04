@@ -6,10 +6,11 @@ import CustomRoutes from "../routes";
 import { HashRouter } from "react-router-dom";
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
+import ScrollToTop from "./Common/ScrollToTop";
 
 export default class App extends Component {
   render() {
-    const { store, history } = this.props;
+    const { store, history } = this.props; //eslint-disable-line
     let persistor = persistStore(store)
     return (
       <Provider store={store}>
@@ -18,7 +19,9 @@ export default class App extends Component {
             <CustomRoutes />
           </ConnectedRouter> */}
           <HashRouter>
+            <ScrollToTop>
               <CustomRoutes />
+            </ScrollToTop>
           </HashRouter>
         </PersistGate>
       </Provider>

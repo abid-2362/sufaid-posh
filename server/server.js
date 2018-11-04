@@ -1,10 +1,13 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const config = require('./serverConfig');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/sufaidPosh');
+const dbString = process.env.MONGODB_CONNECTION_STRING || 'mongodb://localhost/sufaidPosh';
+mongoose.connect(dbString);
 const app = express();
 const corsOptions = {
   origin: ['http://localhost:3000'],
