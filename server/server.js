@@ -1,5 +1,5 @@
-const dotenv = require('dotenv');
-dotenv.config();
+// const dotenv = require('dotenv');
+// dotenv.config();
 const config = require('./serverConfig');
 const express = require('express');
 const cors = require('cors');
